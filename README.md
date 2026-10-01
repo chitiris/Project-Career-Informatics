@@ -26,10 +26,8 @@
 
 **Τοπικά:** κατέβασε το repository και άνοιξε το `index.html` σε έναν browser. Δεν χρειάζεται εγκατάσταση.
 
-**Online με GitHub Pages:**
-1. Στο repository πήγαινε στα **Settings → Pages**.
-2. Στο **Source** επίλεξε **Deploy from a branch**, branch `main` και φάκελο `/ (root)`.
-3. Πάτα **Save**. Σε λίγα λεπτά η σελίδα θα είναι διαθέσιμη στο `https://<όνομα-χρήστη>.github.io/<όνομα-repository>/`.
+**Online με GitHub Pages:**https://github.com/chitiris/Project-Career-Informatics
+
 
 ## Δομή
 
