@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Διαδραστικό brainstorming board με τους επαγγελματικούς τομείς και τις θέσεις εργασίας για αποφοίτους Πληροφορικής.">
+<title>Καριέρες Πληροφορικής</title>
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: a pin-board — 4×6 grid of sticky notes with the central question spanning the middle; each note opens a detail sheet */
+:root{
+  --bg:#EEF0F3; --dot:#C9CED6; --fg:#1E2430; --muted:#535B69;
+  --hub:#1E2430; --hub-fg:#FFFFFF; --hub-eyebrow:#F2C14E;
+  --chip:#FFFFFF; --sheet:#FFFFFF; --line:#DDE1E7; --scrim:rgba(20,24,32,.45);
+  --shadow:0 2px 0 rgba(30,36,48,.08),0 8px 18px rgba(30,36,48,.08);
+  --c1:#DCEBFF; --i1:#1F4E8C;
+  --c2:#E6E0FF; --i2:#4B3A9E;
+  --c3:#FFDCD6; --i3:#A0332A;
+  --c4:#D4F2EC; --i4:#18675A;
+  --c5:#FFE7C2; --i5:#8A4B08;
+  --c6:#E3EDD2; --i6:#45621A;
+  --c7:#FCE1EF; --i7:#8E2A60;
+  --c8:#FFF3B0; --i8:#6E5A00;
+  --c9:#DDE3EC; --i9:#34465E;
+  --c10:#FFD9C7; --i10:#9A3F12;
+  --c11:#D2EEF7; --i11:#155E75;
+  --c12:#F3DDF7; --i12:#7A2E85;
+  --c13:#ECF2C4; --i13:#5A6510;
+  --c14:#D6F0DA; --i14:#23663A;
+  --c15:#D9DDFB; --i15:#333F9A;
+  --c16:#F2E6D3; --i16:#6B4E1F;
+  --c17:#E8E3EE; --i17:#5A4870;
+  --c18:#E4E6DA; --i18:#4C5230;
+  --c19:#D8E4F0; --i19:#22476E;
+  --c20:#ECE4DC; --i20:#5E4636;
+  --font:'Commissioner',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14171D; --dot:#2A303A; --fg:#E8EBF0; --muted:#A3AAB6;
+  --hub:#F2F4F7; --hub-fg:#14171D; --hub-eyebrow:#8A5A00;
+  --chip:#0F1217; --sheet:#1C2028; --line:#2E3440; --scrim:rgba(0,0,0,.6);
+  --shadow:0 2px 0 rgba(0,0,0,.3),0 8px 18px rgba(0,0,0,.35);
+  --c1:#1B2B42; --i1:#9CC3FF;
+  --c2:#2A2446; --i2:#C5B8FF;
+  --c3:#3E2422; --i3:#FFADA2;
+  --c4:#163631; --i4:#86DCC9;
+  --c5:#3A2B15; --i5:#FFC77A;
+  --c6:#263220; --i6:#B8D68C;
+  --c7:#3A1F2E; --i7:#F5A6CF;
+  --c8:#353015; --i8:#EBD66A;
+  --c9:#232A35; --i9:#B4C3D8;
+  --c10:#3D2418; --i10:#FFB592;
+  --c11:#15303A; --i11:#8AD4EA;
+  --c12:#33203A; --i12:#E2A9EC;
+  --c13:#2C3015; --i13:#D3DE7E;
+  --c14:#193220; --i14:#94D9A3;
+  --c15:#1F2342; --i15:#AEB6F5;
+  --c16:#2F281C; --i16:#DCC39A;
+  --c17:#2A2530; --i17:#CDBDE0;
+  --c18:#282A20; --i18:#C5CBA3;
+  --c19:#1A2836; --i19:#9FC2E6;
+  --c20:#2E2722; --i20:#D6BFAE;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#14171D; --dot:#2A303A; --fg:#E8EBF0; --muted:#A3AAB6;
+  --hub:#F2F4F7; --hub-fg:#14171D; --hub-eyebrow:#8A5A00;
+  --chip:#0F1217; --sheet:#1C2028; --line:#2E3440; --scrim:rgba(0,0,0,.6);
+  --shadow:0 2px 0 rgba(0,0,0,.3),0 8px 18px rgba(0,0,0,.35);
+  --c1:#1B2B42; --i1:#9CC3FF;
+  --c2:#2A2446; --i2:#C5B8FF;
+  --c3:#3E2422; --i3:#FFADA2;
+  --c4:#163631; --i4:#86DCC9;
+  --c5:#3A2B15; --i5:#FFC77A;
+  --c6:#263220; --i6:#B8D68C;
+  --c7:#3A1F2E; --i7:#F5A6CF;
+  --c8:#353015; --i8:#EBD66A;
+  --c9:#232A35; --i9:#B4C3D8;
+  --c10:#3D2418; --i10:#FFB592;
+  --c11:#15303A; --i11:#8AD4EA;
+  --c12:#33203A; --i12:#E2A9EC;
+  --c13:#2C3015; --i13:#D3DE7E;
+  --c14:#193220; --i14:#94D9A3;
+  --c15:#1F2342; --i15:#AEB6F5;
+  --c16:#2F281C; --i16:#DCC39A;
+  --c17:#2A2530; --i17:#CDBDE0;
+  --c18:#282A20; --i18:#C5CBA3;
+  --c19:#1A2836; --i19:#9FC2E6;
+  --c20:#2E2722; --i20:#D6BFAE;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--bg);
+  background-image:radial-gradient(var(--dot) 1.2px,transparent 1.2px);
+  background-size:22px 22px;
+  color:var(--fg); font-family:var(--font); font-size:16px; line-height:1.5;
+  padding-inline:clamp(16px,3vw,48px); padding-block:clamp(20px,3vw,48px);
+}
+.board{max-width:1680px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-flow:row dense;gap:26px}
+.note{
+  --tilt:0deg;
+  appearance:none;border:0;font:inherit;color:var(--fg);text-align:left;cursor:pointer;
+  background:var(--c);border-radius:6px;padding:20px 22px 16px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:12px;min-width:0;
+  transform:rotate(var(--tilt));transition:transform .18s ease,box-shadow .18s ease;
+}
+.note:hover{transform:rotate(0deg) translateY(-3px);box-shadow:var(--shadow),0 14px 26px rgba(30,36,48,.12)}
+.note:focus-visible{outline:3px solid var(--ink);outline-offset:4px;transform:rotate(0deg)}
+.note-head{display:flex;align-items:center;gap:10px;color:var(--ink)}
+.note-head svg{flex:none}
+.note-title{display:block;margin:0;font-size:clamp(19px,1.45vw,22px);font-weight:800;line-height:1.2;text-wrap:balance}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{background:var(--chip);padding:5px 10px;border-radius:4px;font-size:14.5px;font-weight:500}
+.law{align-self:flex-start;margin-top:auto;font-size:11.5px;font-weight:700;letter-spacing:.1em;color:var(--ink);border:1.5px solid currentColor;border-radius:3px;padding:1px 6px}
+.law + .more{margin-top:0}
+.more{margin-top:auto;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:6px}
+.hub{grid-column:2 / span 2;grid-row:3 / span 2;display:flex;align-items:center;justify-content:center;padding:8px}
+.hub-disc{
+  width:min(100%,460px);aspect-ratio:460/280;max-width:100%;border-radius:50%;
+  background:var(--hub);color:var(--hub-fg);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:24px 44px;box-shadow:0 10px 28px rgba(30,36,48,.25);
+}
+.hub-eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--hub-eyebrow)}
+.hub h1{margin:8px 0 0;font-size:clamp(22px,2.2vw,32px);font-weight:800;line-height:1.15;text-wrap:balance}
+.hub p{margin:10px 0 0;font-size:14px;opacity:.75}
+
+.source{max-width:1680px;margin:36px auto 0;font-size:13.5px;color:var(--muted);text-align:center;text-wrap:balance}
+.credit{max-width:1680px;margin:14px auto 0;padding-top:14px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted);text-align:center}
+.credit strong{color:var(--fg);font-weight:700}
+.source a{color:var(--fg);font-weight:600}
+.source strong{color:var(--fg);font-weight:600}
+
+dialog{
+  border:0;padding:0;border-radius:10px;background:var(--sheet);color:var(--fg);
+  width:min(760px,calc(100vw - 32px));max-height:calc(100dvh - 48px);
+  box-shadow:0 24px 60px rgba(0,0,0,.3);
+}
+dialog[open]{display:flex;flex-direction:column}
+dialog::backdrop{background:var(--scrim)}
+.sheet-top{background:var(--c);color:var(--ink);padding:24px 28px 20px;display:flex;gap:14px;align-items:flex-start;flex:none}
+.sheet-top h2{margin:0;font-size:26px;font-weight:800;line-height:1.2;flex:1;text-wrap:balance}
+.close{
+  appearance:none;border:0;background:var(--chip);color:var(--fg);width:44px;height:44px;border-radius:50%;
+  display:grid;place-items:center;cursor:pointer;flex:none;margin:-6px -8px 0 0;
+}
+.close:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.sheet-body{padding:20px 28px 28px;overflow:auto;min-height:0}
+.intro{margin:0 0 18px;font-size:17px;color:var(--fg);max-width:60ch}
+.roles{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.roles > li{border-top:1px solid var(--line)}
+.role-plain,.sum-text{display:grid;grid-template-columns:minmax(0,1fr);gap:3px;min-width:0}
+.role-plain{padding:14px 0}
+.roles strong{font-size:16px;font-weight:700}
+.sum-text > span,.role-plain > span{color:var(--muted);font-size:15px;max-width:62ch}
+.hint{margin:-8px 0 14px;font-size:13.5px;font-weight:600;color:var(--ink)}
+summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-radius:4px}
+summary::-webkit-details-marker{display:none}
+summary:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+summary:hover strong{color:var(--ink)}
+.chev{flex:none;margin-top:3px;color:var(--ink);transition:transform .15s ease}
+details[open] .chev{transform:rotate(180deg)}
+.jd{background:var(--c);border-radius:8px;padding:16px 18px;margin:0 0 16px;display:flex;flex-direction:column;gap:16px}
+.jd-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.jd-block{min-width:0}
+.jd h4{margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.jd-list{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:14.5px}
+.jd-tags{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.jd-tags li{background:var(--chip);border-radius:4px;padding:4px 9px;font-size:13.5px;font-weight:500}
+.jd-links{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.jd-links a{display:inline-flex;align-items:center;gap:5px;background:var(--chip);color:var(--ink);font-size:13.5px;font-weight:600;text-decoration:none;padding:6px 10px;border-radius:4px;border:1px solid var(--line)}
+.jd-links a:hover{text-decoration:underline}
+.jd-links a:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+@media (max-width:600px){.jd-cols{grid-template-columns:minmax(0,1fr)}}
+
+@media (max-width:1100px){
+  .board{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hub{grid-column:1 / -1;grid-row:auto;order:-1}
+}
+@media (max-width:600px){
+  .board{grid-template-columns:minmax(0,1fr);gap:20px}
+  .note{--tilt:0deg !important}
+  .sheet-top,.sheet-body{padding-inline:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  .note{transition:none}
+  .note:hover{transform:rotate(var(--tilt))}
+}
+</style>
+</head>
+<body>
+<main class="board" id="board" aria-label="Επαγγελματικοί τομείς για αποφοίτους Πληροφορικής"></main>
+<p class="source">Τα επαγγελματικά δικαιώματα των αποφοίτων Πληροφορικής ορίζονται στο <strong>Π.Δ. 44/2009 (ΦΕΚ Α΄ 58/8.4.2009)</strong>. Τα κουτιά με την ένδειξη ΦΕΚ βασίζονται άμεσα σε αυτό. Τα καθήκοντα και οι γνώσεις κάθε θέσης είναι σύνοψη. Για πλήρη job descriptions δες τα links προς <a href="https://resources.workable.com/job-descriptions/" target="_blank" rel="noopener noreferrer">Workable</a>, <a href="https://www.indeed.com/hire/job-description-list" target="_blank" rel="noopener noreferrer">Indeed</a> και <a href="https://www.shrm.org/topics-tools/tools/job-descriptions" target="_blank" rel="noopener noreferrer">SHRM</a>. Οι θέσεις συμπληρώθηκαν με βάση αγγελίες σε kariera.gr, skywalker.gr, Randstad, Indeed Ελλάδας και freelancer.gr (Οκτώβριος 2026).</p>
+<p class="credit">Δημιουργήθηκε από τον <strong>Χρήστο Χυτήρη</strong> με το Claude Opus 5.5</p>
+
+<dialog id="sheet" aria-labelledby="sheet-title">
+  <div class="sheet-top">
+    <span id="sheet-icon" aria-hidden="true"></span>
+    <h2 id="sheet-title"></h2>
+    <button class="close" id="sheet-close" type="button" aria-label="Κλείσιμο">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="sheet-body">
+    <p class="intro" id="sheet-intro"></p>
+    <p class="hint">Πάτα σε μια θέση για καθήκοντα, γνώσεις και job description.</p>
+    <ul class="roles" id="sheet-roles"></ul>
+  </div>
+</dialog>
+
+<script>
+const ICONS = {
+  code:'<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+  data:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>',
+  shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  cloud:'<path d="M18 10h-1.3A7 7 0 1 0 9 19h9a4.5 4.5 0 0 0 0-9z"/>',
+  pen:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><circle cx="11" cy="11" r="2"/>',
+  case:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>',
+  cap:'<path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/>',
+  bulb:'<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.3h6c0-1.1.4-1.8 1-2.3A7 7 0 0 0 12 2z"/>',
+  bank:'<path d="M3 21h18"/><path d="M3 10h18"/><path d="M12 3l9 7H3l9-7z"/><path d="M5 10v11M9 10v11M15 10v11M19 10v11"/>',
+  rocket:'<path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0"/><path d="M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/>',
+  globe:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+  video:'<rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/>',
+  megaphone:'<path d="M3 11v2a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M17 8a5 5 0 0 1 0 8"/><path d="M8 14l1 5h3"/>',
+  pulse:'<path d="M22 12h-4l-3 8L9 4l-3 8H2"/>',
+  signal:'<path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/>',
+  image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>',
+  building:'<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/>',
+  users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  trend:'<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>',
+  check:'<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/>'
+};
+const svg = (k, s=26) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>`;
+
+const AREAS = [
+ {
+  "id": "software",
+  "n": 1,
+  "tilt": -0.8,
+  "icon": "code",
+  "title": "Ανάπτυξη Λογισμικού",
+  "intro": "Σχεδιάζεις, γράφεις και συντηρείς τον κώδικα των εφαρμογών που χρησιμοποιούμε κάθε μέρα. Είναι η πιο κλασική διαδρομή και συνήθως η πιο εύκολη είσοδος στην αγορά.",
+  "roles": [
+   [
+    "Front-end Developer",
+    "Φτιάχνει ό,τι βλέπει ο χρήστης στον browser, με HTML, CSS, JavaScript και frameworks όπως το React."
+   ],
+   [
+    "Back-end Developer",
+    "Γράφει τη λογική που τρέχει στον server, τα APIs και τη σύνδεση με τις βάσεις δεδομένων."
+   ],
+   [
+    "Full-stack Developer",
+    "Δουλεύει και στο front-end και στο back-end της ίδιας εφαρμογής."
+   ],
+   [
+    "Mobile Developer",
+    "Αναπτύσσει εφαρμογές για iOS και Android, με Swift, Kotlin ή Flutter."
+   ],
+   [
+    "Game Developer",
+    "Προγραμματίζει παιχνίδια, συνήθως με μηχανές όπως Unity ή Unreal Engine."
+   ],
+   [
+    "Embedded / IoT Developer",
+    "Γράφει λογισμικό για συσκευές και αισθητήρες, από έξυπνα σπίτια μέχρι αυτοκίνητα."
+   ],
+   [
+    "QA / Test Engineer",
+    "Ελέγχει ότι το λογισμικό δουλεύει σωστά, με χειροκίνητα και αυτοματοποιημένα tests."
+   ],
+   [
+    "Software Architect",
+    "Σχεδιάζει τη δομή μεγάλων συστημάτων λογισμικού και παίρνει τις βασικές τεχνικές αποφάσεις."
+   ],
+   [
+    "Low-code / Automation Developer",
+    "Αυτοματοποιεί διαδικασίες με πλατφόρμες όπως Power Automate, n8n ή OutSystems."
+   ],
+   [
+    "WordPress / CMS Developer",
+    "Φτιάχνει και προσαρμόζει ιστοσελίδες σε WordPress και άλλα CMS. Πολύ συχνό σε μικρές εταιρείες και στο freelancing."
+   ],
+   [
+    "Integration / Migration Engineer",
+    "Συνδέει διαφορετικά συστήματα μεταξύ τους και μεταφέρει δεδομένα από παλιά σε νέα συστήματα."
+   ]
+  ]
+ },
+ {
+  "id": "data",
+  "n": 2,
+  "tilt": 0.6,
+  "icon": "data",
+  "title": "Δεδομένα & Τεχνητή Νοημοσύνη",
+  "intro": "Μετατρέπεις τα δεδομένα σε αποφάσεις και φτιάχνεις συστήματα που μαθαίνουν από αυτά. Χρειάζεται καλή βάση σε στατιστική και Python.",
+  "roles": [
+   [
+    "Data Analyst",
+    "Αναλύει δεδομένα και φτιάχνει αναφορές και γραφήματα που βοηθούν στις αποφάσεις. Συχνά είναι το πρώτο βήμα στον χώρο."
+   ],
+   [
+    "Data Scientist",
+    "Χτίζει στατιστικά και προβλεπτικά μοντέλα για να απαντήσει σε επιχειρηματικά ερωτήματα."
+   ],
+   [
+    "Data Engineer",
+    "Στήνει τις υποδομές και τα pipelines που συλλέγουν, καθαρίζουν και αποθηκεύουν δεδομένα."
+   ],
+   [
+    "ML / AI Engineer",
+    "Εκπαιδεύει μοντέλα μηχανικής μάθησης και τα βάζει να δουλεύουν μέσα σε πραγματικές εφαρμογές."
+   ],
+   [
+    "BI Analyst / Developer",
+    "Φτιάχνει dashboards σε εργαλεία όπως Power BI ή Tableau, που δείχνουν την πορεία μιας επιχείρησης."
+   ],
+   [
+    "Prompt / LLM Engineer",
+    "Χτίζει εφαρμογές πάνω σε μεγάλα γλωσσικά μοντέλα: prompts, αναζήτηση σε έγγραφα (RAG), agents και αξιολόγηση."
+   ],
+   [
+    "Computer Vision Engineer",
+    "Φτιάχνει μοντέλα που αναγνωρίζουν εικόνες και βίντεο, για παράδειγμα σε κάμερες ασφαλείας ή αυτόνομα οχήματα."
+   ],
+   [
+    "NLP Engineer",
+    "Φτιάχνει συστήματα που κατανοούν και παράγουν κείμενο και ομιλία, όπως chatbots και αυτόματη μετάφραση."
+   ],
+   [
+    "Data Architect",
+    "Σχεδιάζει τη συνολική δομή των δεδομένων ενός οργανισμού και τα πρότυπα που ακολουθούν οι ομάδες."
+   ],
+   [
+    "Data Governance Specialist",
+    "Ορίζει κανόνες για την ποιότητα, την ασφάλεια και την ιδιοκτησία των δεδομένων."
+   ],
+   [
+    "AI Trainer / Data Annotation",
+    "Ετοιμάζει και ελέγχει τα δεδομένα με τα οποία εκπαιδεύονται τα μοντέλα AI."
+   ],
+   [
+    "Γεωπληροφορική (GIS)",
+    "Χάρτες και ανάλυση γεωγραφικών δεδομένων για πόλεις, περιβάλλον και μεταφορές."
+   ]
+  ]
+ },
+ {
+  "id": "security",
+  "n": 3,
+  "tilt": -0.5,
+  "icon": "shield",
+  "title": "Κυβερνοασφάλεια",
+  "intro": "Προστατεύεις συστήματα, δίκτυα και δεδομένα από επιθέσεις. Είναι από τους τομείς με τη μεγαλύτερη ζήτηση.",
+  "roles": [
+   [
+    "SOC Analyst",
+    "Παρακολουθεί τα συστήματα σε πραγματικό χρόνο και αντιδρά όταν εμφανίζεται κάτι ύποπτο."
+   ],
+   [
+    "Penetration Tester",
+    "Επιτίθεται νόμιμα σε συστήματα (ethical hacking) για να βρει τα κενά τους πριν τα βρει κάποιος άλλος."
+   ],
+   [
+    "Security Engineer",
+    "Σχεδιάζει και εφαρμόζει μέτρα ασφαλείας όπως firewalls, κρυπτογράφηση και έλεγχο πρόσβασης."
+   ],
+   [
+    "Digital Forensics Analyst",
+    "Ερευνά τα ψηφιακά ίχνη μετά από ένα περιστατικό για να βρει τι ακριβώς συνέβη."
+   ],
+   [
+    "Σύμβουλος GRC / Συμμόρφωσης",
+    "Φροντίζει να τηρεί ο οργανισμός κανονισμούς και πρότυπα όπως GDPR, NIS2 και ISO 27001."
+   ],
+   [
+    "Cloud Security Engineer",
+    "Ασφαλίζει υποδομές και εφαρμογές στο cloud: δικαιώματα πρόσβασης, ρυθμίσεις και παρακολούθηση."
+   ],
+   [
+    "Security Awareness Trainer",
+    "Εκπαιδεύει τους εργαζόμενους να αναγνωρίζουν phishing και άλλες απειλές."
+   ]
+  ]
+ },
+ {
+  "id": "cloud",
+  "n": 4,
+  "tilt": 0.7,
+  "icon": "cloud",
+  "title": "Υποδομές & Cloud",
+  "intro": "Κρατάς τα συστήματα όρθια, γρήγορα και διαθέσιμα, από τους servers και τα δίκτυα μέχρι το cloud.",
+  "roles": [
+   [
+    "Cloud Engineer",
+    "Στήνει και διαχειρίζεται υποδομές σε πλατφόρμες όπως AWS, Azure ή Google Cloud."
+   ],
+   [
+    "DevOps / SRE",
+    "Αυτοματοποιεί την παράδοση του λογισμικού (CI/CD) και φροντίζει την αξιοπιστία των συστημάτων."
+   ],
+   [
+    "Διαχειριστής Συστημάτων",
+    "Συντηρεί servers, λογαριασμούς χρηστών και λογισμικό μέσα σε έναν οργανισμό."
+   ],
+   [
+    "Network Engineer",
+    "Σχεδιάζει και συντηρεί δίκτυα (LAN, WAN) και τη σύνδεσή τους με το cloud."
+   ],
+   [
+    "Διαχειριστής Βάσεων Δεδομένων",
+    "Φροντίζει την απόδοση, την ασφάλεια και τα αντίγραφα ασφαλείας των βάσεων δεδομένων."
+   ],
+   [
+    "Platform Engineer",
+    "Φτιάχνει εσωτερικές πλατφόρμες και εργαλεία, ώστε οι developers να βγάζουν εύκολα τον κώδικά τους σε παραγωγή."
+   ],
+   [
+    "IT Support / Help Desk",
+    "Πρώτη γραμμή υποστήριξης για χρήστες, υπολογιστές, δίκτυο και εξοπλισμό. Καλό πρώτο βήμα στην αγορά εργασίας."
+   ],
+   [
+    "Πολύγλωσση Τεχνική Υποστήριξη",
+    "Τεχνική υποστήριξη πελατών διεθνών εταιρειών σε ξένη γλώσσα. Πολλές τέτοιες θέσεις υπάρχουν στην Ελλάδα."
+   ],
+   [
+    "Τεχνικός Υλικού Η/Υ",
+    "Εγκαθιστά, επισκευάζει και συντηρεί υπολογιστές, servers και περιφερειακά."
+   ],
+   [
+    "Field Service / On-site IT",
+    "Επισκέπτεται πελάτες ή καταστήματα για εγκαταστάσεις και επισκευές εξοπλισμού."
+   ],
+   [
+    "Τεχνικός Συστημάτων Ασφαλείας",
+    "Εγκαθιστά και συντηρεί κάμερες (CCTV), συναγερμούς και συστήματα ελέγχου πρόσβασης."
+   ]
+  ]
+ },
+ {
+  "hub": true
+ },
+ {
+  "id": "product",
+  "n": 5,
+  "tilt": -0.6,
+  "icon": "pen",
+  "title": "Σχεδιασμός & Προϊόν",
+  "intro": "Αποφασίζεις τι θα φτιαχτεί και πώς θα το ζήσει ο χρήστης. Ταιριάζει αν σε ενδιαφέρουν οι άνθρωποι όσο και η τεχνολογία.",
+  "roles": [
+   [
+    "UX / UI Designer",
+    "Σχεδιάζει την εμπειρία και την εμφάνιση μιας εφαρμογής, με prototypes σε εργαλεία όπως το Figma."
+   ],
+   [
+    "Product Manager",
+    "Ορίζει τι θα χτιστεί και με ποια σειρά, συνδέοντας τους χρήστες, την επιχείρηση και την ομάδα ανάπτυξης."
+   ],
+   [
+    "Business Analyst",
+    "Μεταφράζει τις ανάγκες της επιχείρησης σε τεχνικές απαιτήσεις για την ομάδα."
+   ],
+   [
+    "UX Researcher",
+    "Μελετά πώς οι χρήστες χρησιμοποιούν ένα προϊόν, με συνεντεύξεις και τεστ χρηστικότητας."
+   ],
+   [
+    "Accessibility Specialist",
+    "Φροντίζει να μπορούν όλοι, και τα άτομα με αναπηρία, να χρησιμοποιούν μια εφαρμογή, με βάση τα πρότυπα WCAG."
+   ],
+   [
+    "Product Owner",
+    "Διαχειρίζεται τη λίστα εργασιών (backlog) μιας ομάδας ανάπτυξης και αποφασίζει τι θα γίνει σε κάθε sprint."
+   ]
+  ]
+ },
+ {
+  "id": "consulting",
+  "n": 6,
+  "tilt": 0.5,
+  "icon": "case",
+  "title": "Διαχείριση & Συμβουλευτική",
+  "intro": "Συνδυάζεις τεχνικές γνώσεις με οργάνωση και επικοινωνία, και βοηθάς ομάδες και πελάτες να ολοκληρώσουν έργα πληροφορικής.",
+  "roles": [
+   [
+    "Project Manager / Scrum Master",
+    "Οργανώνει έργα, προθεσμίες και ομάδες, συχνά με μεθόδους Agile."
+   ],
+   [
+    "IT Consultant",
+    "Συμβουλεύει εταιρείες για το ποια τεχνολογία να υιοθετήσουν και πώς."
+   ],
+   [
+    "ERP / CRM Consultant",
+    "Προσαρμόζει και εγκαθιστά επιχειρηματικά συστήματα όπως SAP, Salesforce ή SoftOne."
+   ],
+   [
+    "Solutions Architect",
+    "Σχεδιάζει τη συνολική τεχνική λύση ενός έργου πριν ξεκινήσει η υλοποίηση."
+   ],
+   [
+    "IT & ERP Support (Μηχανογράφος)",
+    "Υποστηρίζει τους χρήστες μιας εταιρείας στο ERP και στα συστήματα γραφείου. Πολύ συχνή θέση σε ελληνικές επιχειρήσεις."
+   ]
+  ]
+ },
+ {
+  "id": "education",
+  "n": 7,
+  "tilt": -0.7,
+  "icon": "cap",
+  "title": "Εκπαίδευση & Έρευνα",
+  "intro": "Μεταδίδεις γνώση ή την επεκτείνεις. Αυτή η διαδρομή συχνά περνάει από μεταπτυχιακές σπουδές.",
+  "roles": [
+   [
+    "Καθηγητής Πληροφορικής (ΠΕ86)",
+    "Διδάσκει Πληροφορική στη δευτεροβάθμια εκπαίδευση. Για διορισμό χρειάζεται και παιδαγωγική επάρκεια."
+   ],
+   [
+    "Καθηγητής σε Φροντιστήριο / Ιδιωτικό Σχολείο",
+    "Διδάσκει Πληροφορική σε φροντιστήρια, ιδιωτικά σχολεία και κέντρα πληροφορικής."
+   ],
+   [
+    "Υποψήφιος Διδάκτορας",
+    "Κάνει διδακτορική έρευνα, συχνά με υποτροφία ή αμοιβή από ερευνητικά έργα. Ανοίγει τον δρόμο προς την έρευνα και την πανεπιστημιακή καριέρα."
+   ],
+   [
+    "Ερευνητής",
+    "Δουλεύει σε πανεπιστήμια, δημόσια ή ιδιωτικά ερευνητικά κέντρα και εργαστήρια εταιρειών, συχνά σε ευρωπαϊκά έργα."
+   ],
+   [
+    "Μέλος ΔΕΠ (Πανεπιστήμιο)",
+    "Διδάσκει και κάνει έρευνα σε πανεπιστήμιο, συνήθως ως μέλος ΔΕΠ μετά από διδακτορικό."
+   ],
+   [
+    "Εκπαιδευτής σε ΙΕΚ / Κατάρτιση",
+    "Διδάσκει σε ΙΕΚ, κέντρα κατάρτισης και ιδιωτικούς εκπαιδευτικούς φορείς."
+   ],
+   [
+    "Εκπαιδευτής Ρομποτικής / STEM",
+    "Διδάσκει προγραμματισμό και ρομποτική σε παιδιά και εφήβους, σε σχολεία ή εκπαιδευτικά κέντρα."
+   ]
+  ]
+ },
+ {
+  "id": "emerging",
+  "n": 8,
+  "tilt": 0.8,
+  "icon": "bulb",
+  "title": "Αναδυόμενοι Κλάδοι",
+  "intro": "Χώροι που μεγαλώνουν γρήγορα και συνδυάζουν την πληροφορική με άλλα πεδία.",
+  "roles": [
+   [
+    "FinTech",
+    "Νέες εταιρείες τεχνολογίας για πληρωμές και χρηματοοικονομικές υπηρεσίες, όπως ψηφιακά πορτοφόλια και open banking."
+   ],
+   [
+    "Blockchain",
+    "Αποκεντρωμένα συστήματα και smart contracts."
+   ],
+   [
+    "AR / VR",
+    "Εφαρμογές επαυξημένης και εικονικής πραγματικότητας για εκπαίδευση, ψυχαγωγία και βιομηχανία."
+   ],
+   [
+    "Κβαντικοί Υπολογιστές",
+    "Αλγόριθμοι για κβαντικούς υπολογιστές. Είναι ακόμη κυρίως ερευνητικό πεδίο."
+   ],
+   [
+    "Green IT",
+    "Ενεργειακά αποδοτικό λογισμικό και υποδομές, και μέτρηση του περιβαλλοντικού αποτυπώματος της τεχνολογίας."
+   ]
+  ]
+ },
+ {
+  "id": "public",
+  "n": 9,
+  "tilt": -0.4,
+  "icon": "bank",
+  "title": "Δημόσιος Τομέας",
+  "intro": "Δουλεύεις για το κράτος ή για φορείς του, με σταθερότητα και έργα που αγγίζουν όλους τους πολίτες. Οι προσλήψεις γίνονται κυρίως μέσω ΑΣΕΠ.",
+  "roles": [
+   [
+    "Θέσεις ΠΕ Πληροφορικής (ΑΣΕΠ)",
+    "Μόνιμες θέσεις στα τμήματα πληροφορικής και μηχανοργάνωσης υπουργείων, δήμων, νοσοκομείων και άλλων φορέων, μέσω προκηρύξεων."
+   ],
+   [
+    "Ψηφιακός Μετασχηματισμός / GovTech",
+    "Έργα που μεταφέρουν τις υπηρεσίες του κράτους online, όπως οι εφαρμογές του gov.gr, και απλοποιούν τις διαδικασίες για τους πολίτες."
+   ],
+   [
+    "Δίωξη Ηλεκτρονικού Εγκλήματος (ΕΛ.ΑΣ.)",
+    "Η υπηρεσία της Ελληνικής Αστυνομίας που ερευνά απάτες, hacking και άλλα εγκλήματα στο διαδίκτυο."
+   ],
+   [
+    "Ένοπλες Δυνάμεις",
+    "Θέσεις πληροφορικής και κυβερνοάμυνας σε Στρατό, Ναυτικό και Αεροπορία."
+   ]
+  ]
+ },
+ {
+  "id": "startup",
+  "n": 10,
+  "tilt": 0.6,
+  "icon": "rocket",
+  "title": "Επιχειρηματικότητα",
+  "intro": "Στήνεις κάτι δικό σου. Έχει ρίσκο, αλλά και ελευθερία και μεγάλες δυνατότητες.",
+  "roles": [
+   [
+    "Startup Founder",
+    "Ξεκινά μια νεοφυή εταιρεία γύρω από ένα προϊόν, συχνά με χρηματοδότηση από επενδυτές."
+   ],
+   [
+    "Τεχνικός Συνιδρυτής (CTO)",
+    "Αναλαμβάνει την τεχνολογία σε μια νέα εταιρεία, μαζί με συνιδρυτές από άλλους χώρους."
+   ],
+   [
+    "Ιδρυτής Software House",
+    "Στήνει δική του εταιρεία που αναπτύσσει λογισμικό για πελάτες."
+   ],
+   [
+    "Indie Developer / SaaS",
+    "Φτιάχνει μόνος του μικρές εφαρμογές ή online υπηρεσίες με συνδρομή."
+   ]
+  ]
+ },
+ {
+  "id": "freelance",
+  "n": 11,
+  "tilt": -0.6,
+  "icon": "globe",
+  "title": "Freelancing & Remote",
+  "intro": "Δουλεύεις με δικούς σου όρους, από οπουδήποτε. Χρειάζεται αυτοπειθαρχία και ένα καλό portfolio.",
+  "roles": [
+   [
+    "Freelancer",
+    "Αναλαμβάνει έργα από πελάτες απευθείας ή μέσω πλατφορμών όπως Upwork και Malt."
+   ],
+   [
+    "Remote σε εταιρεία του εξωτερικού",
+    "Εργάζεται από την Ελλάδα για εταιρεία άλλης χώρας, συχνά με υψηλότερες αποδοχές."
+   ],
+   [
+    "Contractor",
+    "Συμμετέχει σε έργα για συγκεκριμένο διάστημα, με σύμβαση έργου."
+   ],
+   [
+    "Digital Nomad",
+    "Δουλεύει remote ενώ ταξιδεύει, με βάση σε διαφορετικές χώρες."
+   ]
+  ]
+ },
+ {
+  "id": "content",
+  "n": 12,
+  "tilt": 0.5,
+  "icon": "video",
+  "title": "Δημιουργία Περιεχομένου",
+  "intro": "Μοιράζεσαι γνώση και χτίζεις κοινό γύρω από την τεχνολογία.",
+  "roles": [
+   [
+    "Tech YouTuber / Streamer",
+    "Ανεβάζει βίντεο με tutorials και κριτικές ή κάνει live coding."
+   ],
+   [
+    "Tech Blogger / Newsletter",
+    "Γράφει άρθρα και οδηγούς για θέματα τεχνολογίας."
+   ],
+   [
+    "Developer Advocate",
+    "Δουλεύει σε εταιρεία και βοηθά τους developers να χρησιμοποιούν τα εργαλεία της, με ομιλίες, demos και περιεχόμενο."
+   ],
+   [
+    "Δημιουργός Online Μαθημάτων",
+    "Φτιάχνει μαθήματα σε πλατφόρμες όπως Udemy ή Coursera."
+   ],
+   [
+    "Technical Writer",
+    "Γράφει τεκμηρίωση, οδηγούς χρήσης και documentation για APIs."
+   ]
+  ]
+ },
+ {
+  "id": "marketing",
+  "n": 13,
+  "tilt": -0.7,
+  "icon": "megaphone",
+  "title": "Ψηφιακό Marketing & SEO",
+  "intro": "Χρησιμοποιείς δεδομένα και τεχνικές γνώσεις για να φέρεις επισκέπτες και πελάτες online.",
+  "roles": [
+   [
+    "SEO Specialist",
+    "Βελτιώνει μια ιστοσελίδα ώστε να εμφανίζεται ψηλότερα στις αναζητήσεις."
+   ],
+   [
+    "Marketing Technologist",
+    "Στήνει και συνδέει τα εργαλεία marketing μιας εταιρείας, όπως CRM, email και analytics."
+   ],
+   [
+    "Web / Growth Analyst",
+    "Μελετά τη συμπεριφορά των επισκεπτών με εργαλεία όπως το Google Analytics και προτείνει βελτιώσεις."
+   ],
+   [
+    "Performance Marketing Specialist",
+    "Διαχειρίζεται διαφημίσεις σε Google και social media και μετρά την απόδοσή τους."
+   ],
+   [
+    "Social Media Manager",
+    "Διαχειρίζεται τα social media μιας εταιρείας, από το περιεχόμενο μέχρι τις διαφημίσεις."
+   ],
+   [
+    "E-shop Manager",
+    "Διαχειρίζεται ένα ηλεκτρονικό κατάστημα, από τα προϊόντα μέχρι τις παραγγελίες και την τιμολόγηση."
+   ]
+  ]
+ },
+ {
+  "id": "health",
+  "n": 14,
+  "tilt": 0.7,
+  "icon": "pulse",
+  "title": "Πληροφορική στην Υγεία",
+  "intro": "Η τεχνολογία στην υπηρεσία της ιατρικής, από τα νοσοκομεία μέχρι την έρευνα.",
+  "roles": [
+   [
+    "Βιοπληροφορική",
+    "Ανάλυση βιολογικών δεδομένων, όπως το DNA, με αλγορίθμους και προγραμματισμό."
+   ],
+   [
+    "Συστήματα Νοσοκομείων",
+    "Ανάπτυξη και υποστήριξη πληροφοριακών συστημάτων νοσοκομείων και του ηλεκτρονικού φακέλου ασθενούς."
+   ],
+   [
+    "HealthTech",
+    "Εφαρμογές για ασθενείς και γιατρούς, όπως τηλεϊατρική και wearables."
+   ],
+   [
+    "AI στην Ιατρική Απεικόνιση",
+    "Μοντέλα που βοηθούν στην ανάλυση ακτινογραφιών, αξονικών και άλλων εξετάσεων."
+   ]
+  ]
+ },
+ {
+  "id": "telecom",
+  "n": 15,
+  "tilt": -0.5,
+  "icon": "signal",
+  "title": "Τηλεπικοινωνίες",
+  "law": true,
+  "intro": "Σχεδιάζεις και λειτουργείς τα δίκτυα που μεταφέρουν φωνή, δεδομένα και internet. Το ΦΕΚ αναφέρει ρητά τα συστήματα και δίκτυα επικοινωνιών, τις τηλεπικοινωνιακές υπηρεσίες και τις εφαρμογές διαδικτύου.",
+  "roles": [
+   [
+    "Δίκτυα Κινητής (4G / 5G)",
+    "Σχεδιασμός, εγκατάσταση και βελτιστοποίηση των δικτύων κινητής τηλεφωνίας."
+   ],
+   [
+    "Πάροχοι Ηλεκτρονικών Επικοινωνιών",
+    "Θέσεις σε εταιρείες τηλεφωνίας και internet, από την τεχνική υποστήριξη μέχρι τον σχεδιασμό νέων υπηρεσιών."
+   ],
+   [
+    "Εφαρμογές Διαδικτύου & VoIP",
+    "Υπηρεσίες που τρέχουν πάνω στο δίκτυο, όπως τηλεφωνία μέσω internet και τηλεδιάσκεψη."
+   ],
+   [
+    "Οπτικά & Δορυφορικά Δίκτυα",
+    "Υποδομές οπτικών ινών και δορυφορικών επικοινωνιών."
+   ],
+   [
+    "Ρυθμιστικές Αρχές",
+    "Έλεγχος ότι δίκτυα και υπηρεσίες τηρούν τους κανόνες, σε φορείς όπως η ΕΕΤΤ."
+   ]
+  ]
+ },
+ {
+  "id": "media",
+  "n": 16,
+  "tilt": 0.6,
+  "icon": "image",
+  "title": "Γραφικά, Σήματα & Αυτοματισμοί",
+  "law": true,
+  "intro": "Δουλεύεις με εικόνα, ήχο, σήματα και συστήματα που ελέγχουν μηχανές. Το ΦΕΚ αναφέρει ρητά τα γραφικά, την επεξεργασία σήματος, εικόνας και ομιλίας, και τα συστήματα αυτοματισμού.",
+  "roles": [
+   [
+    "Computer Graphics / 3D",
+    "Λογισμικό τρισδιάστατων γραφικών για παιχνίδια, ταινίες, αρχιτεκτονική και προσομοιώσεις."
+   ],
+   [
+    "Επεξεργασία Εικόνας & Βίντεο",
+    "Αλγόριθμοι για συμπίεση, βελτίωση και ανάλυση εικόνας και βίντεο."
+   ],
+   [
+    "Επεξεργασία Ήχου & Ομιλίας",
+    "Αναγνώριση και σύνθεση ομιλίας, φωνητικοί βοηθοί και ψηφιακή επεξεργασία ήχου."
+   ],
+   [
+    "Ψηφιακή Επεξεργασία Σήματος",
+    "Επεξεργασία σημάτων από αισθητήρες, ιατρικά μηχανήματα και τηλεπικοινωνίες."
+   ],
+   [
+    "Ρομποτική",
+    "Λογισμικό που ελέγχει ρομπότ, drones και αυτόνομα οχήματα."
+   ],
+   [
+    "Συστήματα Αυτοματισμού",
+    "Λογισμικό που ελέγχει μηχανές και διαδικασίες σε εργοστάσια και κτίρια."
+   ]
+  ]
+ },
+ {
+  "id": "audit",
+  "n": 18,
+  "tilt": -0.6,
+  "icon": "check",
+  "title": "Έλεγχος & Πιστοποίηση",
+  "law": true,
+  "intro": "Ελέγχεις ότι τα συστήματα και τα έργα πληροφορικής δουλεύουν σωστά, είναι ασφαλή και τηρούν τα πρότυπα. Το ΦΕΚ αναφέρει ρητά την επίβλεψη, την αξιολόγηση, την πραγματογνωμοσύνη και την πιστοποίηση.",
+  "roles": [
+   [
+    "Πραγματογνώμονας Πληροφορικής",
+    "Συντάσσει τεχνικές εκθέσεις και γνωμοδοτήσεις, για παράδειγμα για δικαστήρια ή για διαφορές σε έργα."
+   ],
+   [
+    "IT Auditor",
+    "Ελέγχει τα πληροφοριακά συστήματα ενός οργανισμού για κινδύνους, ασφάλεια και σωστή λειτουργία."
+   ],
+   [
+    "Επιβλέπων Έργων Πληροφορικής",
+    "Παρακολουθεί την υλοποίηση ενός έργου πληροφορικής για λογαριασμό του πελάτη ή του Δημοσίου."
+   ],
+   [
+    "Μέλος Επιτροπών Αξιολόγησης & Παραλαβής",
+    "Αξιολογεί προσφορές σε διαγωνισμούς και ελέγχει αν τα παραδοτέα ενός έργου καλύπτουν τις απαιτήσεις."
+   ],
+   [
+    "Ελεγκτής Πιστοποίησης (ISO)",
+    "Ελέγχει αν συστήματα και διαδικασίες τηρούν πρότυπα όπως ISO 9001 και ISO 27001."
+   ]
+  ]
+ },
+ {
+  "id": "sectors",
+  "n": 17,
+  "tilt": 0.5,
+  "icon": "building",
+  "title": "Κλάδοι που Προσλαμβάνουν",
+  "law": true,
+  "intro": "Η πληροφορική χρειάζεται σχεδόν σε κάθε κλάδο. Το ΦΕΚ αναφέρει ρητά, μεταξύ άλλων, τους παρακάτω χώρους.",
+  "roles": [
+   [
+    "Τράπεζες & Ασφαλιστικές",
+    "Εσωτερικές ομάδες για e-banking, συστήματα συναλλαγών, ασφάλεια και ανάλυση κινδύνου."
+   ],
+   [
+    "Ναυτιλία",
+    "Συστήματα για στόλους πλοίων, δορυφορικές επικοινωνίες και διαχείριση φορτίων. Μεγάλος κλάδος στην Ελλάδα."
+   ],
+   [
+    "Τουρισμός",
+    "Συστήματα κρατήσεων, ξενοδοχειακό λογισμικό και ταξιδιωτικές πλατφόρμες."
+   ],
+   [
+    "Μεταφορές & Logistics",
+    "Λογισμικό για δρομολόγηση, αποθήκες, διαχείριση στόλου και ευφυή συστήματα μεταφορών."
+   ],
+   [
+    "ΜΜΕ & Οπτικοακουστικά",
+    "Τεχνικές ομάδες σε τηλεοπτικούς σταθμούς, ειδησεογραφικά sites, streaming και εταιρείες παραγωγής."
+   ],
+   [
+    "Εταιρείες Συμβούλων",
+    "Έργα πληροφορικής για πελάτες από πολλούς κλάδους."
+   ],
+   [
+    "Εταιρείες Υψηλής Τεχνολογίας",
+    "Εταιρείες που αναπτύσσουν τεχνολογικά προϊόντα, στην Ελλάδα και διεθνώς."
+   ],
+   [
+    "Λιανική & E-commerce",
+    "Ηλεκτρονικά καταστήματα, πλατφόρμες πληρωμών και τα συστήματα που τα υποστηρίζουν."
+   ]
+  ]
+ },
+ {
+  "id": "leadership",
+  "n": 19,
+  "tilt": -0.5,
+  "icon": "users",
+  "title": "Διοίκηση IT",
+  "intro": "Οδηγείς ομάδες και αποφασίζεις για την τεχνολογία ενός οργανισμού. Συνήθως έρχεται μετά από μερικά χρόνια εμπειρίας. Στις ελληνικές αγγελίες εμφανίζεται συχνά ως IT Manager ή Υπεύθυνος Μηχανογράφησης.",
+  "roles": [
+   [
+    "IT Manager / Υπεύθυνος Μηχανογράφησης",
+    "Διοικεί το τμήμα πληροφορικής μιας εταιρείας, από τις υποδομές μέχρι την υποστήριξη των χρηστών."
+   ],
+   [
+    "CIO / IT Director",
+    "Χαράζει τη στρατηγική τεχνολογίας ολόκληρου του οργανισμού."
+   ],
+   [
+    "CISO",
+    "Είναι υπεύθυνος για την ασφάλεια πληροφοριών ολόκληρου του οργανισμού."
+   ],
+   [
+    "Engineering Manager",
+    "Διοικεί ομάδες developers και φροντίζει να παραδίδουν σωστά και να εξελίσσονται."
+   ],
+   [
+    "IT Service Delivery Manager",
+    "Φροντίζει να παρέχονται οι υπηρεσίες πληροφορικής στο επίπεδο που έχει συμφωνηθεί με τους πελάτες."
+   ]
+  ]
+ },
+ {
+  "id": "sales",
+  "n": 20,
+  "tilt": 0.6,
+  "icon": "trend",
+  "title": "Πωλήσεις Τεχνολογίας",
+  "intro": "Πουλάς λογισμικό, υπηρεσίες ή εξοπλισμό πληροφορικής. Η τεχνική σου γνώση είναι πλεονέκτημα, γιατί καταλαβαίνεις τι χρειάζεται ο πελάτης. Τα ελληνικά sites αγγελιών έχουν ξεχωριστές κατηγορίες για Πωλήσεις IT και Μηχανικούς Πωλήσεων.",
+  "roles": [
+   [
+    "Πωλητής IT / Account Manager",
+    "Βρίσκει και διαχειρίζεται πελάτες για προϊόντα και υπηρεσίες πληροφορικής."
+   ],
+   [
+    "Sales Engineer",
+    "Συνδυάζει τεχνική γνώση και πωλήσεις για σύνθετα προϊόντα και έργα."
+   ],
+   [
+    "Pre-sales Engineer",
+    "Εξηγεί σε υποψήφιους πελάτες τι προσφέρει τεχνικά ένα προϊόν και στήνει demos."
+   ],
+   [
+    "Customer Success Manager",
+    "Φροντίζει οι πελάτες να χρησιμοποιούν σωστά το προϊόν και να μένουν ικανοποιημένοι."
+   ]
+  ]
+ }
+];
+
+const JD = {"Software Architect":{"d":["Ορίζει την αρχιτεκτονική και τα τεχνικά πρότυπα","Επιλέγει τεχνολογίες","Ελέγχει σχέδια και κώδικα","Καθοδηγεί τους developers"],"k":["Πολυετής εμπειρία στην ανάπτυξη","Design patterns και microservices","Cloud και κατανεμημένα συστήματα","Ασφάλεια και κλιμάκωση","Επικοινωνία"],"l":[["Workable · Software Architect","https://resources.workable.com/software-architect-job-description"],["Workable · Technical Architect","https://resources.workable.com/technical-architect-job-description"]]},"Data Analyst":{"d":["Συλλέγει και καθαρίζει δεδομένα","Αναλύει τάσεις και απαντά σε επιχειρηματικά ερωτήματα","Φτιάχνει αναφορές και dashboards","Παρουσιάζει τα ευρήματα"],"k":["SQL","Excel","Python ή R","Power BI ή Tableau","Στατιστική"],"l":[["Indeed · Data Analyst","https://www.indeed.com/hire/job-description/data-analyst"]]},"Data Scientist":{"d":["Διατυπώνει ερωτήματα και υποθέσεις","Χτίζει προβλεπτικά μοντέλα","Σχεδιάζει πειράματα, όπως A/B tests","Εξηγεί τα αποτελέσματα σε μη τεχνικούς"],"k":["Python (pandas, scikit-learn)","Στατιστική και πιθανότητες","Μηχανική μάθηση","SQL","Οπτικοποίηση δεδομένων"],"l":[["Workable · Data Scientist","https://resources.workable.com/data-scientist-job-description"],["Indeed · Data Scientist","https://www.indeed.com/hire/job-description/data-scientist"],["SHRM · Data Scientist","https://www.shrm.org/resourcesandtools/tools-and-samples/job-descriptions/pages/data-scientist.aspx"]]},"Data Engineer":{"d":["Σχεδιάζει pipelines δεδομένων (ETL / ELT)","Στήνει data warehouses και data lakes","Φροντίζει για την ποιότητα και τη διαθεσιμότητα των δεδομένων","Αυτοματοποιεί ροές"],"k":["SQL και Python","Spark, Airflow, dbt","Cloud (AWS, Azure, GCP)","Μοντελοποίηση δεδομένων","Kafka"],"l":[["Indeed · Data Engineer","https://www.indeed.com/hire/job-description/data-engineer"],["Workable · Senior Data Engineer","https://resources.workable.com/senior-data-engineer-job-description"]]},"ML / AI Engineer":{"d":["Εκπαιδεύει και αξιολογεί μοντέλα","Βάζει τα μοντέλα σε παραγωγή","Παρακολουθεί την απόδοσή τους","Συνεργάζεται με data scientists"],"k":["Python","PyTorch ή TensorFlow","Μαθηματικά της μηχανικής μάθησης","MLOps (Docker, MLflow)","Cloud"],"l":[["Workable · Machine Learning Engineer","https://resources.workable.com/machine-learning-engineer-job-description"],["Workable · AI Engineer","https://resources.workable.com/ai-engineer-job-description"],["Indeed · Machine Learning Engineer","https://www.indeed.com/hire/job-description/machine-learning-engineer"],["Indeed · AI Engineer","https://www.indeed.com/hire/job-description/ai-engineer"]]},"Prompt / LLM Engineer":{"d":["Σχεδιάζει και δοκιμάζει prompts","Στήνει αναζήτηση σε έγγραφα (RAG) και agents","Αξιολογεί την ποιότητα και την ασφάλεια των απαντήσεων","Ενσωματώνει LLM APIs σε εφαρμογές"],"k":["Python ή TypeScript","LLM APIs","Embeddings και vector databases","Μέθοδοι αξιολόγησης","Καλή γραπτή διατύπωση"],"l":[["Workable · Prompt Engineer","https://resources.workable.com/prompt-engineer-job-description"],["Indeed · Prompt Engineer","https://www.indeed.com/hire/job-description/prompt-engineer"]]},"SOC Analyst":{"d":["Παρακολουθεί ειδοποιήσεις σε σύστημα SIEM","Αναλύει και κατατάσσει τα περιστατικά","Κλιμακώνει και καταγράφει","Συμμετέχει στην αντιμετώπιση περιστατικών"],"k":["Δίκτυα (TCP/IP)","SIEM (Splunk, Microsoft Sentinel)","Linux και Windows","Βασικά malware","Πιστοποιήσεις όπως Security+ ή CySA+"],"l":[["Indeed · Information Security Analyst","https://www.indeed.com/hire/job-description/information-security-analyst"],["SHRM · Information Security Analyst","https://www.shrm.org/topics-tools/tools/job-descriptions/information-security-analyst"]]},"Penetration Tester":{"d":["Κάνει εξουσιοδοτημένες δοκιμές διείσδυσης","Εντοπίζει ευπάθειες","Γράφει αναφορά με προτάσεις διόρθωσης","Ξαναελέγχει μετά τη διόρθωση"],"k":["Kali Linux, Burp Suite, Nmap, Metasploit","Ασφάλεια web (OWASP Top 10)","Python και Bash","Δίκτυα","Πιστοποιήσεις όπως OSCP ή eJPT"],"l":[["Indeed · Ethical Hacker","https://www.indeed.com/hire/job-description/ethical-hacker"]]},"Security Engineer":{"d":["Σχεδιάζει και εφαρμόζει μέτρα ασφαλείας","Διαχειρίζεται firewalls και συστήματα ανίχνευσης εισβολών","Οργανώνει τη διαχείριση ευπαθειών","Αυτοματοποιεί ελέγχους ασφαλείας"],"k":["Δίκτυα και λειτουργικά συστήματα","Κρυπτογραφία","Ασφάλεια cloud","Scripting","Πιστοποιήσεις όπως CISSP ή Security+"],"l":[["Workable · Security Engineer","https://resources.workable.com/security-engineer-job-description"],["Workable · Cyber Security Specialist","https://resources.workable.com/cyber-security-specialist-job-description"],["Indeed · Cyber Security Specialist","https://www.indeed.com/hire/job-description/cyber-security-specialist"]]},"Security Awareness Trainer":{"d":["Σχεδιάζει εκπαιδευτικά προγράμματα","Τρέχει προσομοιώσεις phishing","Μετρά τα αποτελέσματα","Ενημερώνει για νέες απειλές"],"k":["Βασικά κυβερνοασφάλειας","Παρουσίαση και εκπαίδευση ενηλίκων","Δημιουργία υλικού","Ενσυναίσθηση"],"l":[]},"Cloud Engineer":{"d":["Στήνει υποδομές στο cloud","Αυτοματοποιεί με Infrastructure as Code","Παρακολουθεί κόστος και απόδοση","Μεταφέρει εφαρμογές στο cloud"],"k":["AWS, Azure ή GCP","Terraform","Linux και δίκτυα","Docker και Kubernetes","Πιστοποιήσεις cloud"],"l":[["Workable · Cloud Engineer","https://resources.workable.com/cloud-engineer-job-description"],["Workable · Cloud Architect","https://resources.workable.com/cloud-architect-job-description"]]},"DevOps / SRE":{"d":["Στήνει pipelines CI/CD","Διαχειρίζεται containers και Kubernetes","Παρακολουθεί τα συστήματα και τις ειδοποιήσεις","Αντιμετωπίζει incidents και γράφει post-mortems"],"k":["Linux και Bash","Docker και Kubernetes","GitHub Actions ή Jenkins","Prometheus και Grafana","Python ή Go"],"l":[["Workable · DevOps Engineer","https://resources.workable.com/devops-engineer-job-description"],["Workable · Site Reliability Engineer","https://resources.workable.com/site-reliability-engineer-job-description"],["Indeed · DevOps Engineer","https://www.indeed.com/hire/job-description/devops-engineer"]]},"Διαχειριστής Συστημάτων":{"d":["Εγκαθιστά και ενημερώνει servers","Διαχειρίζεται χρήστες και δικαιώματα","Παίρνει αντίγραφα ασφαλείας","Λύνει προβλήματα"],"k":["Windows Server και Active Directory","Linux","Virtualization (VMware, Hyper-V)","PowerShell ή Bash","Δίκτυα"],"l":[["Workable · System Administrator","https://resources.workable.com/system-administrator-job-description"],["Indeed · System Administrator","https://www.indeed.com/hire/job-description/system-administrator"],["Workable · IT Administrator","https://resources.workable.com/it-administrator-job-description"]]},"Network Engineer":{"d":["Σχεδιάζει και εγκαθιστά δίκτυα","Ρυθμίζει routers, switches και firewalls","Παρακολουθεί και επιλύει προβλήματα","Τεκμηριώνει την υποδομή"],"k":["TCP/IP, routing, VLAN","Εξοπλισμός Cisco, Juniper ή MikroTik","VPN","Ασύρματα δίκτυα","Πιστοποίηση CCNA"],"l":[["Indeed · Network Engineer","https://www.indeed.com/hire/job-description/network-engineer"],["Workable · Network Administrator","https://resources.workable.com/network-administrator-job-description"],["Indeed · Network Administrator","https://www.indeed.com/hire/job-description/network-administrator"],["SHRM · Network Administrator / LAN Analyst","https://www.shrm.org/topics-tools/tools/job-descriptions/network-administrator-lan-analyst"]]},"Διαχειριστής Βάσεων Δεδομένων":{"d":["Εγκαθιστά και ρυθμίζει βάσεις δεδομένων","Βελτιστοποιεί τα queries","Σχεδιάζει backups και ανάκτηση","Ελέγχει την πρόσβαση"],"k":["SQL","PostgreSQL, Oracle, SQL Server, MySQL","Indexing και tuning","Replication","Scripting"],"l":[["Workable · Database Administrator","https://resources.workable.com/database-administrator-job-description"],["Indeed · Database Administrator","https://www.indeed.com/hire/job-description/database-administrator"],["SHRM · Database Analyst","https://www.shrm.org/resourcesandtools/tools-and-samples/job-descriptions/pages/database-analyst.aspx"]]},"Platform Engineer":{"d":["Χτίζει εσωτερικές πλατφόρμες για τους developers","Δημιουργεί templates και εργαλεία αυτοεξυπηρέτησης","Τυποποιεί το deploy και το monitoring","Μειώνει την πολυπλοκότητα για τις ομάδες"],"k":["Kubernetes","Terraform","CI/CD","Go ή Python","Εμπειρία developer"],"l":[]},"Τεχνικός Υλικού Η/Υ":{"d":["Συναρμολογεί, αναβαθμίζει και επισκευάζει υπολογιστές","Εγκαθιστά λειτουργικά και drivers","Διαγιγνώσκει βλάβες","Συντηρεί εκτυπωτές και περιφερειακά"],"k":["Υλικό υπολογιστών","Εγκατάσταση Windows και Linux","Διαγνωστικά εργαλεία","Βασικά δικτύων","Πιστοποίηση CompTIA A+"],"l":[["Workable · Computer Technician","https://resources.workable.com/computer-technician-job-description"],["Indeed · Computer Technician","https://www.indeed.com/hire/job-description/computer-technician"]]},"UX / UI Designer":{"d":["Σχεδιάζει wireframes, prototypes και την τελική εμφάνιση","Χτίζει design systems","Δοκιμάζει τα σχέδια με χρήστες","Συνεργάζεται με developers"],"k":["Figma","Αρχές UX και visual design","Τυπογραφία και χρώμα","Prototyping","Βασικά HTML και CSS"],"l":[["Workable · UI/UX Designer","https://resources.workable.com/ui-ux-designer-job-description"],["Indeed · UX Designer","https://www.indeed.com/hire/job-description/ux-designer"],["Indeed · Product Designer","https://www.indeed.com/hire/job-description/product-designer"]]},"Product Manager":{"d":["Ορίζει το όραμα και το roadmap του προϊόντος","Βάζει προτεραιότητες στα features","Γράφει απαιτήσεις και user stories","Μετρά τα αποτελέσματα"],"k":["Κατανόηση τεχνολογίας","Ανάλυση δεδομένων","Agile και Scrum","Επικοινωνία","Λήψη αποφάσεων"],"l":[["Workable · Software Product Manager","https://resources.workable.com/software-product-manager-job-description"],["Indeed · Product Manager","https://www.indeed.com/hire/job-description/product-manager"]]},"Business Analyst":{"d":["Συλλέγει απαιτήσεις από τους χρήστες","Γράφει προδιαγραφές και user stories","Μοντελοποιεί διαδικασίες","Ελέγχει ότι η λύση καλύπτει τις ανάγκες"],"k":["Ανάλυση απαιτήσεων","BPMN και UML","SQL και Excel","Jira και Confluence","Επικοινωνία"],"l":[["Workable · Business Analyst","https://resources.workable.com/business-analyst-job-description"],["Indeed · IT Business Analyst","https://www.indeed.com/hire/job-description/it-business-analyst"],["SHRM · Business Analyst","https://www.shrm.org/resourcesandtools/tools-and-samples/job-descriptions/pages/business-analyst.aspx"]]},"UX Researcher":{"d":["Σχεδιάζει έρευνες χρηστών","Κάνει συνεντεύξεις και τεστ χρηστικότητας","Αναλύει τα ευρήματα","Προτείνει βελτιώσεις"],"k":["Ποιοτικές και ποσοτικές μέθοδοι","Ερωτηματολόγια","Ανάλυση δεδομένων","Παρουσίαση","Ενσυναίσθηση"],"l":[["Workable · UX Researcher","https://resources.workable.com/ux-researcher-job-description"]]},"Accessibility Specialist":{"d":["Ελέγχει εφαρμογές για προσβασιμότητα","Δοκιμάζει με screen readers","Προτείνει διορθώσεις","Εκπαιδεύει τις ομάδες"],"k":["WCAG 2.2","HTML και ARIA","Screen readers (NVDA, VoiceOver)","Ευρωπαϊκή Πράξη για την Προσβασιμότητα","Εργαλεία ελέγχου"],"l":[]},"Project Manager / Scrum Master":{"d":["Σχεδιάζει χρονοδιάγραμμα και πόρους","Συντονίζει την ομάδα και τις συναντήσεις","Παρακολουθεί κινδύνους και προϋπολογισμό","Αναφέρει την πρόοδο"],"k":["Agile, Scrum, Kanban","Jira","Διαχείριση κινδύνου","Επικοινωνία","Πιστοποιήσεις όπως PMP ή PSM"],"l":[["Workable · Scrum Master","https://resources.workable.com/scrum-master-job-description"],["Indeed · IT Project Manager","https://www.indeed.com/hire/job-description/it-project-manager"],["SHRM · IT Project Manager","https://www.shrm.org/topics-tools/tools/job-descriptions/information-technology-project-manager"]]},"IT Consultant":{"d":["Αναλύει τις ανάγκες του πελάτη","Προτείνει λύσεις","Σχεδιάζει την υλοποίηση","Υποστηρίζει την αλλαγή στον οργανισμό"],"k":["Ευρεία τεχνική γνώση","Ανάλυση επιχειρήσεων","Παρουσίαση","Διαχείριση έργων","Επικοινωνία"],"l":[["Workable · IT Consultant","https://resources.workable.com/it-consultant-job-description"]]},"ERP / CRM Consultant":{"d":["Καταγράφει τις διαδικασίες του πελάτη","Παραμετροποιεί το σύστημα","Μεταφέρει δεδομένα από παλιά συστήματα","Εκπαιδεύει τους χρήστες"],"k":["SAP, Salesforce, SoftOne ή Dynamics","Βασικά λογιστικής και πωλήσεων","SQL","Ανάλυση διαδικασιών","Επικοινωνία"],"l":[["Workable · Salesforce Developer","https://resources.workable.com/salesforce-developer-job-description"]]},"Solutions Architect":{"d":["Σχεδιάζει ολόκληρη την τεχνική λύση","Επιλέγει τεχνολογίες και διασυνδέσεις","Εκτιμά το κόστος","Συνεργάζεται με πελάτες και ομάδες"],"k":["Cloud, APIs και integrations","Αρχιτεκτονική συστημάτων","Ασφάλεια","Εμπειρία ανάπτυξης","Επικοινωνία"],"l":[["Indeed · Solution Architect","https://www.indeed.com/hire/job-description/solution-architect"],["Indeed · Enterprise Architect","https://www.indeed.com/hire/job-description/enterprise-architect"]]},"Technical Writer":{"d":["Γράφει εγχειρίδια και οδηγούς","Τεκμηριώνει APIs","Συνεργάζεται με developers","Κρατά την τεκμηρίωση ενημερωμένη"],"k":["Άριστη γραφή","Markdown και docs-as-code","Βασικά προγραμματισμού και APIs","Git","Αγγλικά"],"l":[["Indeed · Technical Writer","https://www.indeed.com/hire/job-description/technical-writer"],["SHRM · Technical Writer","https://www.shrm.org/topics-tools/tools/job-descriptions/technical-writer"]]},"Καθηγητής Πληροφορικής (ΠΕ86)":{"d":["Διδάσκει Πληροφορική σε γυμνάσιο, λύκειο και ΕΠΑΛ","Προετοιμάζει μαθητές για το μάθημα Πληροφορικής των Πανελλαδικών","Οργανώνει εργαστηριακά μαθήματα","Αξιολογεί τους μαθητές"],"k":["Πτυχίο Πληροφορικής","Παιδαγωγική και διδακτική επάρκεια","Αλγόριθμοι και Python","Διαχείριση τάξης"],"l":[]},"Ερευνητής":{"d":["Σχεδιάζει και εκτελεί έρευνα","Γράφει προτάσεις για χρηματοδότηση","Δημοσιεύει τα αποτελέσματα","Συνεργάζεται σε ευρωπαϊκά έργα"],"k":["Μεταπτυχιακό ή διδακτορικό","Ειδίκευση σε ένα πεδίο","Προγραμματισμός","Επιστημονική γραφή","Αγγλικά"],"l":[["Indeed · Researcher","https://www.indeed.com/hire/job-description/researcher"],["Workable · AI Research Scientist","https://resources.workable.com/ai-research-scientist-job-description"],["Workable · Computer Scientist","https://resources.workable.com/computer-scientist-job-description"]]},"Εκπαιδευτής σε ΙΕΚ / Κατάρτιση":{"d":["Διδάσκει πρακτικά μαθήματα","Ετοιμάζει εργαστηριακές ασκήσεις","Προετοιμάζει για πιστοποιήσεις","Αξιολογεί τους εκπαιδευόμενους"],"k":["Πρακτική εμπειρία στο αντικείμενο","Ικανότητα να εξηγεί απλά","Εκπαίδευση ενηλίκων","Οργάνωση"],"l":[["Indeed · Instructor","https://www.indeed.com/hire/job-description/instructor"]]},"Εκπαιδευτής Ρομποτικής / STEM":{"d":["Διδάσκει προγραμματισμό σε παιδιά","Σχεδιάζει projects ρομποτικής","Προετοιμάζει ομάδες για διαγωνισμούς","Ενθαρρύνει τη δημιουργικότητα"],"k":["Scratch και Python","LEGO, Arduino, micro:bit","Παιδαγωγικά","Υπομονή","Επικοινωνία με γονείς"],"l":[["Indeed · Instructor","https://www.indeed.com/hire/job-description/instructor"]]},"FinTech":{"d":["Αναπτύσσει πλατφόρμες πληρωμών και εφαρμογές banking","Ενσωματώνει APIs τραπεζών (open banking)","Φροντίζει για ασφάλεια και συμμόρφωση","Επεξεργάζεται συναλλαγές σε πραγματικό χρόνο"],"k":["Java, Kotlin ή Go","Ασφάλεια","PSD2 και PCI-DSS","Βάσεις δεδομένων","Βασικά οικονομικά"],"l":[]},"Blockchain":{"d":["Γράφει smart contracts","Χτίζει αποκεντρωμένες εφαρμογές","Ελέγχει την ασφάλεια των contracts","Ενσωματώνει ψηφιακά πορτοφόλια"],"k":["Solidity","Ethereum / EVM","Κρυπτογραφία","JavaScript / TypeScript"],"l":[]},"AR / VR":{"d":["Αναπτύσσει εμπειρίες επαυξημένης και εικονικής πραγματικότητας","Δημιουργεί αλληλεπιδράσεις σε 3D","Βελτιστοποιεί την απόδοση","Δοκιμάζει σε headsets"],"k":["Unity ή Unreal","C# ή C++","Μαθηματικά 3D","ARKit, ARCore, OpenXR","UX για 3D"],"l":[]},"Ρομποτική":{"d":["Προγραμματίζει την κίνηση και την αντίληψη ρομπότ","Ενσωματώνει αισθητήρες","Τρέχει προσομοιώσεις","Δοκιμάζει σε πραγματικό υλικό"],"k":["ROS","C++ και Python","Θεωρία ελέγχου και γραμμική άλγεβρα","Computer vision","Βασικά ηλεκτρονικά"],"l":[]},"Κβαντικοί Υπολογιστές":{"d":["Σχεδιάζει κβαντικούς αλγορίθμους","Τους δοκιμάζει σε προσομοιωτές και πραγματικό υλικό","Ερευνά εφαρμογές","Δημοσιεύει"],"k":["Γραμμική άλγεβρα","Βασικά κβαντικής μηχανικής","Qiskit ή Cirq","Python","Συνήθως μεταπτυχιακό"],"l":[]},"Green IT":{"d":["Μετρά την κατανάλωση και το αποτύπωμα των συστημάτων","Βελτιστοποιεί κώδικα και υποδομές","Συντάσσει αναφορές βιωσιμότητας","Προτείνει πιο αποδοτικές πρακτικές"],"k":["Cloud και data centers","Profiling απόδοσης","Μετρικές ενέργειας και εκπομπών","Ανάλυση δεδομένων"],"l":[]},"Γεωπληροφορική (GIS)":{"d":["Συλλέγει και επεξεργάζεται γεωχωρικά δεδομένα","Φτιάχνει χάρτες και χωρικές αναλύσεις","Αναπτύσσει εφαρμογές χαρτών για το web","Διαχειρίζεται χωρικές βάσεις δεδομένων"],"k":["QGIS ή ArcGIS","PostGIS","Python (GeoPandas)","Leaflet ή OpenLayers","Χαρτογραφικές προβολές"],"l":[]},"Θέσεις ΠΕ Πληροφορικής (ΑΣΕΠ)":{"d":["Υποστηρίζει τα πληροφοριακά συστήματα του φορέα","Διαχειρίζεται δίκτυο και εξοπλισμό","Συμμετέχει σε έργα και επιτροπές","Υποστηρίζει τους υπαλλήλους"],"k":["Πτυχίο Πληροφορικής","Συστήματα και δίκτυα","Παρακολούθηση των προκηρύξεων ΑΣΕΠ","Ξένη γλώσσα"],"l":[]},"Ένοπλες Δυνάμεις":{"d":["Υποστηρίζει δίκτυα και συστήματα επικοινωνιών","Συμμετέχει στην κυβερνοάμυνα","Αναπτύσσει και συντηρεί λογισμικό","Εκπαιδεύει προσωπικό"],"k":["Δίκτυα και ασφάλεια","Πειθαρχία","Ένταξη μέσω στρατιωτικών σχολών ή προκηρύξεων ειδικοτήτων","Χειρισμός διαβαθμισμένων πληροφοριών"],"l":[]},"Startup Founder":{"d":["Εντοπίζει ένα πρόβλημα και τους πελάτες του","Χτίζει την πρώτη εκδοχή του προϊόντος (MVP)","Αναζητά χρηματοδότηση","Στήνει ομάδα"],"k":["Ανάπτυξη προϊόντος","Βασικά επιχειρείν και οικονομικά","Pitching","Ανθεκτικότητα","Δίκτυο επαφών"],"l":[]},"Τεχνικός Συνιδρυτής (CTO)":{"d":["Ορίζει την τεχνική στρατηγική","Χτίζει την πρώτη εκδοχή του προϊόντος","Προσλαμβάνει την ομάδα","Επιλέγει τεχνολογίες"],"k":["Full-stack ανάπτυξη","Αρχιτεκτονική","Ηγεσία","Cloud","Επιχειρηματική σκέψη"],"l":[["Workable · CTO","https://resources.workable.com/cto-job-description"]]},"Freelancer":{"d":["Βρίσκει πελάτες","Εκτιμά χρόνο και κάνει προσφορές","Παραδίδει τη δουλειά","Κόβει τιμολόγια"],"k":["Ισχυρή τεχνική ειδίκευση","Portfolio","Διαπραγμάτευση","Φορολογικά ελεύθερου επαγγελματία","Αγγλικά"],"l":[]},"Contractor":{"d":["Αναλαμβάνει ένα συγκεκριμένο έργο","Δουλεύει μέσα στην ομάδα του πελάτη","Παραδίδει το αποτέλεσμα","Μεταφέρει τη γνώση στην ομάδα"],"k":["Εξειδίκευση","Γρήγορη προσαρμογή","Συμβάσεις","Αγγλικά"],"l":[]},"Digital Nomad":{"d":["Κάνει remote δουλειά ενώ ταξιδεύει","Οργανώνει μετακινήσεις και διαμονή","Εξασφαλίζει σταθερή σύνδεση","Τακτοποιεί άδειες διαμονής και φορολογία"],"k":["Δεξιότητες remote εργασίας","Οργάνωση","Βίζες για digital nomads","Προσαρμοστικότητα"],"l":[]},"Tech YouTuber / Streamer":{"d":["Επιλέγει θέματα","Γράφει σενάριο και καταγράφει","Μοντάρει","Χτίζει κοινότητα"],"k":["Τεχνική γνώση","Video editing","Παρουσίαση","Συνέπεια","Βασικά analytics"],"l":[]},"Tech Blogger / Newsletter":{"d":["Γράφει άρθρα και οδηγούς","Κάνει έρευνα για κάθε θέμα","Επιμελείται newsletter","Μετρά την αναγνωσιμότητα"],"k":["Γραφή","Τεχνική κατανόηση","SEO","Substack, Ghost ή WordPress"],"l":[]},"Developer Advocate":{"d":["Δίνει ομιλίες και workshops","Γράφει tutorials και παραδείγματα κώδικα","Μεταφέρει το feedback των developers στην εταιρεία","Χτίζει κοινότητα"],"k":["Εμπειρία ανάπτυξης","Δημόσιος λόγος","Γραφή","Αγγλικά","Social media"],"l":[]},"Δημιουργός Online Μαθημάτων":{"d":["Σχεδιάζει την ύλη","Καταγράφει βίντεο","Ετοιμάζει ασκήσεις","Απαντά σε ερωτήσεις"],"k":["Βαθιά γνώση του θέματος","Διδακτική","Καταγραφή και μοντάζ","Marketing"],"l":[]},"SEO Specialist":{"d":["Κάνει έρευνα λέξεων-κλειδιών","Βελτιώνει το τεχνικό SEO της σελίδας","Παρακολουθεί τις θέσεις στις αναζητήσεις","Προτείνει περιεχόμενο"],"k":["Google Search Console","Βασικά HTML","Ahrefs ή Semrush","Analytics","Core Web Vitals"],"l":[["Indeed · SEO Specialist","https://www.indeed.com/hire/job-description/seo-specialist"]]},"Marketing Technologist":{"d":["Στήνει CRM και email automation","Συνδέει τα εργαλεία μεταξύ τους","Ρυθμίζει το tracking","Βελτιώνει τις ροές"],"k":["HubSpot ή Salesforce Marketing Cloud","APIs","Google Tag Manager","SQL","GDPR"],"l":[]},"Web / Growth Analyst":{"d":["Αναλύει τη διαδρομή των επισκεπτών (funnels)","Τρέχει A/B tests","Φτιάχνει dashboards","Προτείνει βελτιώσεις"],"k":["Google Analytics 4","SQL","Στατιστική","Looker Studio","Πειραματισμός"],"l":[["Workable · Web Optimization Manager","https://resources.workable.com/web-optimization-manager-job-description"],["Workable · UX Data Analyst","https://resources.workable.com/ux-data-analyst-job-description"]]},"Βιοπληροφορική":{"d":["Αναλύει γονιδιωματικά δεδομένα","Αναπτύσσει pipelines ανάλυσης","Συνεργάζεται με βιολόγους","Οπτικοποιεί αποτελέσματα"],"k":["Python και R","Biopython, Bioconductor","Linux και υπολογιστικά clusters","Βασικά βιολογίας","Στατιστική"],"l":[]},"Συστήματα Νοσοκομείων":{"d":["Υποστηρίζει τα πληροφοριακά συστήματα του νοσοκομείου","Διασυνδέει συστήματα και εργαστήρια","Προστατεύει τα δεδομένα των ασθενών","Εκπαιδεύει το προσωπικό"],"k":["HL7 και FHIR","Βάσεις δεδομένων","GDPR για δεδομένα υγείας","Δίκτυα"],"l":[["Workable · Healthcare Data Analyst","https://resources.workable.com/healthcare-data-analyst-job-description"]]},"HealthTech":{"d":["Αναπτύσσει εφαρμογές για ασθενείς και γιατρούς","Ενσωματώνει wearables","Φροντίζει για την ιατρική συμμόρφωση","Δοκιμάζει με πραγματικούς χρήστες"],"k":["Ανάπτυξη mobile και web","Ασφάλεια δεδομένων","Κανονισμός ιατροτεχνολογικών προϊόντων (MDR)","FHIR","UX"],"l":[]},"AI στην Ιατρική Απεικόνιση":{"d":["Εκπαιδεύει μοντέλα σε ιατρικές εικόνες","Συνεργάζεται με ακτινολόγους","Αξιολογεί κλινικά τα μοντέλα","Προετοιμάζει την πιστοποίηση"],"k":["Deep learning","Πρότυπο DICOM","PyTorch και MONAI","Στατιστική","Ηθική και κανονισμοί"],"l":[]},"Δίκτυα Κινητής (4G / 5G)":{"d":["Σχεδιάζει κάλυψη και χωρητικότητα","Ρυθμίζει σταθμούς βάσης","Αναλύει δείκτες απόδοσης του δικτύου","Επιλύει προβλήματα"],"k":["LTE και 5G NR","Βασικά ραδιοσυχνοτήτων","Εργαλεία κατασκευαστών (π.χ. Ericsson, Nokia)","Ανάλυση δεδομένων","Scripting"],"l":[["Workable · Telecommunications Specialist","https://resources.workable.com/telecommunications-specialist-job-description"]]},"Πάροχοι Ηλεκτρονικών Επικοινωνιών":{"d":["Διαχειρίζεται τηλεπικοινωνιακά συστήματα","Παρακολουθεί το δίκτυο από κέντρο ελέγχου (NOC)","Σχεδιάζει νέες υπηρεσίες","Υποστηρίζει εταιρικούς πελάτες"],"k":["Τηλεπικοινωνίες","Δίκτυα IP","Εργαλεία παρακολούθησης δικτύου","Επικοινωνία"],"l":[["Workable · Telecommunications Specialist","https://resources.workable.com/telecommunications-specialist-job-description"],["Indeed · Network Technician","https://www.indeed.com/hire/job-description/network-technician"]]},"Εφαρμογές Διαδικτύου & VoIP":{"d":["Στήνει τηλεφωνικά κέντρα IP","Ρυθμίζει SIP","Διασφαλίζει την ποιότητα φωνής και εικόνας","Επιλύει προβλήματα"],"k":["SIP και RTP","Asterisk ή FreeSWITCH","QoS","Linux","Δίκτυα"],"l":[]},"Οπτικά & Δορυφορικά Δίκτυα":{"d":["Σχεδιάζει δίκτυα οπτικών ινών","Εποπτεύει την εγκατάσταση","Ρυθμίζει δορυφορικούς σταθμούς","Μετρά την ποιότητα των ζεύξεων"],"k":["FTTH και GPON","DWDM","Δορυφορικές επικοινωνίες","Μετρητικά όργανα (OTDR)","Σχεδίαση δικτύων"],"l":[]},"Ρυθμιστικές Αρχές":{"d":["Εποπτεύει την αγορά τηλεπικοινωνιών","Ελέγχει τη συμμόρφωση των παρόχων","Διαχειρίζεται το φάσμα συχνοτήτων","Συμμετέχει στη σύνταξη κανονισμών"],"k":["Τηλεπικοινωνίες","Ευρωπαϊκή νομοθεσία","Ανάλυση","Γραφή","Πρόσληψη μέσω προκηρύξεων"],"l":[]},"Computer Graphics / 3D":{"d":["Αναπτύσσει rendering engines και shaders","Βελτιστοποιεί την απόδοση στην κάρτα γραφικών","Φτιάχνει εργαλεία για artists","Υλοποιεί οπτικά εφέ"],"k":["C++","OpenGL, Vulkan ή DirectX","GLSL ή HLSL","Γραμμική άλγεβρα","Βασικά Blender"],"l":[]},"Επεξεργασία Εικόνας & Βίντεο":{"d":["Υλοποιεί αλγορίθμους φίλτρων και συμπίεσης","Βελτιώνει την ποιότητα εικόνας","Αναλύει περιεχόμενο βίντεο","Βελτιστοποιεί για πραγματικό χρόνο"],"k":["OpenCV και FFmpeg","Codecs (H.264, AV1)","C++ ή Python","Ψηφιακή επεξεργασία εικόνας","Μαθηματικά"],"l":[]},"Επεξεργασία Ήχου & Ομιλίας":{"d":["Αναπτύσσει μετατροπή ομιλίας σε κείμενο και αντίστροφα","Επεξεργάζεται ήχο","Εκπαιδεύει μοντέλα","Αξιολογεί την ποιότητα"],"k":["Ψηφιακή επεξεργασία σήματος","Python και PyTorch","Μοντέλα ομιλίας","Βασικά ακουστικής","C++"],"l":[]},"Ψηφιακή Επεξεργασία Σήματος":{"d":["Σχεδιάζει ψηφιακά φίλτρα","Αναλύει σήματα από αισθητήρες","Υλοποιεί αλγορίθμους σε embedded συστήματα ή FPGA","Τρέχει προσομοιώσεις"],"k":["Σήματα και συστήματα","MATLAB ή Python","Μετασχηματισμός Fourier","C","Βασικά FPGA"],"l":[]},"Συστήματα Αυτοματισμού":{"d":["Προγραμματίζει PLC","Στήνει συστήματα SCADA","Συνδέει αισθητήρες και κινητήρες","Συντηρεί γραμμές παραγωγής"],"k":["PLC (π.χ. Siemens, Ladder)","SCADA","Modbus και OPC UA","Βασικά ηλεκτρολογικά","Ασφάλεια εγκαταστάσεων"],"l":[]},"Πραγματογνώμονας Πληροφορικής":{"d":["Εξετάζει συστήματα, λογισμικό και τεκμήρια","Συντάσσει τεχνική έκθεση","Καταθέτει σε δικαστήριο όταν χρειάζεται","Απαντά σε τεχνικά ερωτήματα"],"k":["Βαθιά τεχνική γνώση","Digital forensics","Νομικό πλαίσιο","Σαφής γραφή","Αμεροληψία"],"l":[]},"IT Auditor":{"d":["Σχεδιάζει και εκτελεί ελέγχους","Αξιολογεί τις δικλίδες ασφαλείας","Γράφει τα ευρήματα","Παρακολουθεί τις διορθώσεις"],"k":["COBIT και ISO 27001","Ελεγκτική","Ασφάλεια πληροφοριών","Excel και ανάλυση δεδομένων","Πιστοποίηση CISA"],"l":[["Indeed · IT Auditor","https://www.indeed.com/hire/job-description/it-auditor"],["SHRM · Audit and Control Specialist","https://www.shrm.org/topics-tools/tools/job-descriptions/audit-control-specialist"]]},"Τράπεζες & Ασφαλιστικές":{"d":["Συντήρηση και εξέλιξη των κεντρικών τραπεζικών συστημάτων","Ανάπτυξη εφαρμογών e-banking","Ασφάλεια και εντοπισμός απάτης","Ανάλυση δεδομένων και κινδύνου"],"k":["Java ή .NET","SQL","Ασφάλεια","Κανονισμοί (PSD2, DORA)","Agile"],"l":[]},"Ναυτιλία":{"d":["Λογισμικό διαχείρισης στόλου και φορτίων","Δορυφορικές συνδέσεις πλοίων","Κυβερνοασφάλεια πλοίων","Υποστήριξη γραφείων και πληρωμάτων"],"k":["Δίκτυα και δορυφορικές επικοινωνίες (VSAT)","Ναυτιλιακά ERP","Ασφάλεια","Διάθεση για ταξίδια σε πλοία"],"l":[]},"Τουρισμός":{"d":["Συστήματα κρατήσεων και διαχείρισης ξενοδοχείων","Σύνδεση με πλατφόρμες κρατήσεων","Websites και booking engines","Δεδομένα για τιμολόγηση"],"k":["Ανάπτυξη web","APIs","Βάσεις δεδομένων","Analytics"],"l":[]},"Μεταφορές & Logistics":{"d":["Βελτιστοποίηση διαδρομών","Συστήματα διαχείρισης αποθηκών","Τηλεματική στόλου","Πληροφοριακά συστήματα μεταφορών"],"k":["Αλγόριθμοι βελτιστοποίησης","SQL","IoT και GPS","ERP","Python"],"l":[]},"ΜΜΕ & Οπτικοακουστικά":{"d":["Συστήματα διαχείρισης περιεχομένου για ειδησεογραφικά sites","Υποδομές streaming","Συστήματα εκπομπής","Ψηφιακά προϊόντα και εφαρμογές"],"k":["Ανάπτυξη web","Video streaming (HLS)","CMS","Cloud","Εργασία σε live συνθήκες"],"l":[]},"Εταιρείες Συμβούλων":{"d":["Έργα σε πελάτες διαφορετικών κλάδων","Αναλύσεις και προτάσεις","Υλοποίηση λύσεων","Παρουσιάσεις σε πελάτες"],"k":["Ευελιξία","Επικοινωνία","Ισχυρή τεχνική βάση","Πιστοποιήσεις","Διάθεση για ταξίδια"],"l":[["Workable · IT Consultant","https://resources.workable.com/it-consultant-job-description"]]},"Εταιρείες Υψηλής Τεχνολογίας":{"d":["Ανάπτυξη τεχνολογικών προϊόντων","Έρευνα και καινοτομία","Δουλειά σε διεθνείς ομάδες","Υποστήριξη πελατών παγκοσμίως"],"k":["Ισχυρά θεμέλια στην επιστήμη υπολογιστών","Αγγλικά","Συνεχής μάθηση","Ομαδικότητα"],"l":[]},"WordPress / CMS Developer":{"d":["Στήνει ιστοσελίδες","Προσαρμόζει themes και plugins","Συντηρεί και ενημερώνει τις σελίδες","Βελτιώνει την ταχύτητα και την ασφάλεια"],"k":["WordPress","PHP","HTML, CSS, JavaScript","MySQL","Βασικά SEO"],"l":[["Workable · PHP Developer","https://resources.workable.com/php-developer-job-description"],["Indeed · Web Developer","https://www.indeed.com/hire/job-description/web-developer"],["Workable · Webmaster","https://resources.workable.com/webmaster-job-description"]]},"Integration / Migration Engineer":{"d":["Σχεδιάζει διασυνδέσεις μεταξύ συστημάτων","Υλοποιεί APIs και middleware","Σχεδιάζει μεταφορές δεδομένων","Ελέγχει ότι δεν χάνονται δεδομένα"],"k":["APIs (REST, SOAP)","SAP CPI, MuleSoft ή παρόμοια εργαλεία","SQL","Scripting","Προσοχή στη λεπτομέρεια"],"l":[["Indeed · Integration Engineer","https://www.indeed.com/hire/job-description/integration-engineer"]]},"Data Architect":{"d":["Σχεδιάζει τη συνολική δομή των δεδομένων","Ορίζει πρότυπα για τις ομάδες","Επιλέγει τεχνολογίες αποθήκευσης","Συνεργάζεται με data engineers"],"k":["Μοντελοποίηση δεδομένων","SQL και NoSQL","Πλατφόρμες δεδομένων στο cloud","Διακυβέρνηση δεδομένων"],"l":[["Workable · Data Architect","https://resources.workable.com/data-architect-job-description"],["Indeed · Data Architect","https://www.indeed.com/hire/job-description/data-architect"]]},"AI Trainer / Data Annotation":{"d":["Επισημαίνει κείμενα, εικόνες ή ήχο","Αξιολογεί τις απαντήσεις μοντέλων","Γράφει παραδείγματα για εκπαίδευση","Ελέγχει την ποιότητα των δεδομένων"],"k":["Προσοχή στη λεπτομέρεια","Καλή γνώση γλώσσας","Εργαλεία annotation","Βασικά AI"],"l":[["Workable · Data Annotator","https://resources.workable.com/data-annotator-job-description"],["Workable · AI Trainer","https://resources.workable.com/ai-trainer-job-description"]]},"Field Service / On-site IT":{"d":["Εγκαθιστά εξοπλισμό στον χώρο του πελάτη","Επισκευάζει βλάβες","Συντηρεί ταμειακά (POS), εκτυπωτές και δίκτυα","Καταγράφει τις εργασίες"],"k":["Υλικό υπολογιστών και δίκτυα","Δίπλωμα οδήγησης","Επικοινωνία με πελάτες","Αυτονομία"],"l":[["Indeed · IT Technician","https://www.indeed.com/hire/job-description/it-technician"]]},"Τεχνικός Συστημάτων Ασφαλείας":{"d":["Εγκαθιστά κάμερες, καταγραφικά και συναγερμούς","Τα συνδέει στο δίκτυο","Συντηρεί τα συστήματα","Υποστηρίζει τους χρήστες"],"k":["Δίκτυα IP","Συστήματα CCTV και NVR","Βασικά ηλεκτρολογικά","Αυτονομία"],"l":[]},"Product Owner":{"d":["Γράφει και ιεραρχεί user stories","Εκπροσωπεί τους χρήστες στην ομάδα","Ελέγχει και αποδέχεται τα παραδοτέα","Συνεργάζεται με τον Scrum Master"],"k":["Scrum","Jira","Ανάλυση απαιτήσεων","Επικοινωνία","Πιστοποίηση PSPO"],"l":[["Workable · Product Owner","https://resources.workable.com/product-owner-job-description"],["Indeed · Product Owner","https://www.indeed.com/hire/job-description/product-owner"]]},"IT & ERP Support (Μηχανογράφος)":{"d":["Υποστηρίζει τους χρήστες στο ERP","Φτιάχνει αναφορές","Συντηρεί υπολογιστές και δίκτυο","Συνεργάζεται με τον πάροχο του ERP"],"k":["ERP (π.χ. SoftOne, Entersoft, Epsilon)","SQL","Windows και δίκτυα","Βασικά λογιστικής"],"l":[["Indeed · IT Specialist","https://www.indeed.com/hire/job-description/it-specialist"]]},"Πολύγλωσση Τεχνική Υποστήριξη":{"d":["Απαντά σε πελάτες μέσω τηλεφώνου, chat ή email","Λύνει τεχνικά προβλήματα","Καταγράφει και κλιμακώνει","Ακολουθεί τις διαδικασίες της εταιρείας"],"k":["Άριστη γνώση ξένης γλώσσας","Βασικά IT","Επικοινωνία","Ticketing"],"l":[["Indeed · Technical Support Specialist","https://www.indeed.com/hire/job-description/technical-support-specialist"]]},"Καθηγητής σε Φροντιστήριο / Ιδιωτικό Σχολείο":{"d":["Προετοιμάζει μαθητές για το μάθημα Πληροφορικής των Πανελλαδικών","Διδάσκει για πιστοποιήσεις γνώσεων υπολογιστών","Ετοιμάζει υλικό και διαγωνίσματα","Ενημερώνει τους γονείς"],"k":["Πτυχίο Πληροφορικής","Αλγόριθμοι και Python","Διδακτική","Υπομονή"],"l":[]},"Social Media Manager":{"d":["Σχεδιάζει το πρόγραμμα περιεχομένου","Δημοσιεύει και απαντά στο κοινό","Μετρά την απόδοση","Τρέχει διαφημίσεις"],"k":["Meta, TikTok, LinkedIn","Βασικά γραφιστικής (π.χ. Canva)","Analytics","Copywriting"],"l":[]},"E-shop Manager":{"d":["Ανεβάζει και ενημερώνει προϊόντα","Παρακολουθεί παραγγελίες και τιμολόγηση","Οργανώνει προσφορές","Αναλύει τις πωλήσεις"],"k":["Shopify ή WooCommerce","Excel","ERP","Βασικά SEO και analytics"],"l":[]},"IT Manager / Υπεύθυνος Μηχανογράφησης":{"d":["Οργανώνει το τμήμα και τις προτεραιότητές του","Διαχειρίζεται προϋπολογισμό και προμηθευτές","Εξασφαλίζει τη λειτουργία και την ασφάλεια των συστημάτων","Αναφέρει στη διοίκηση"],"k":["Ευρεία γνώση υποδομών και εφαρμογών","Διοίκηση ομάδας","Προϋπολογισμός","ITIL","Επικοινωνία"],"l":[["Workable · IT Manager","https://resources.workable.com/it-manager-job-description"],["Indeed · IT Manager","https://www.indeed.com/hire/job-description/it-manager"]]},"CIO / IT Director":{"d":["Ορίζει τη στρατηγική τεχνολογίας","Εγκρίνει επενδύσεις","Ηγείται του ψηφιακού μετασχηματισμού","Συμμετέχει στη διοίκηση της εταιρείας"],"k":["Στρατηγική σκέψη","Οικονομικά","Ηγεσία","Διακυβέρνηση IT","Πολυετής εμπειρία"],"l":[["Workable · CIO","https://resources.workable.com/cio-job-description"],["Workable · IT Director","https://resources.workable.com/it-director-job-description"],["Indeed · IT Director","https://www.indeed.com/hire/job-description/it-director"]]},"CISO":{"d":["Ορίζει το πρόγραμμα ασφάλειας του οργανισμού","Διαχειρίζεται κινδύνους και περιστατικά","Αναφέρει στη διοίκηση και στις αρχές","Ηγείται της ομάδας ασφάλειας"],"k":["Βαθιά γνώση ασφάλειας","NIS2 και ISO 27001","Διαχείριση κινδύνου","Ηγεσία","Πιστοποιήσεις όπως CISSP ή CISM"],"l":[["Workable · CISO","https://resources.workable.com/chief-information-security-officer-job-description"]]},"Engineering Manager":{"d":["Προσλαμβάνει και καθοδηγεί developers","Οργανώνει τη δουλειά της ομάδας","Βελτιώνει τις διαδικασίες","Συνδέει την ομάδα με το product"],"k":["Εμπειρία στην ανάπτυξη","Διοίκηση ανθρώπων","Agile","Επικοινωνία"],"l":[["Indeed · Engineering Manager","https://www.indeed.com/hire/job-description/engineering-manager"],["Workable · Director of Engineering","https://resources.workable.com/director-of-engineering-job-description"]]},"IT Service Delivery Manager":{"d":["Παρακολουθεί τις συμφωνίες επιπέδου υπηρεσίας (SLAs)","Συντονίζει τις ομάδες υποστήριξης","Χειρίζεται τις κλιμακώσεις","Βελτιώνει τις διαδικασίες"],"k":["ITIL","Διαχείριση υπηρεσιών","Επικοινωνία με πελάτες","Εργαλεία ticketing"],"l":[["Workable · IT Operations Manager","https://resources.workable.com/it-operations-manager-job-description"]]},"Πωλητής IT / Account Manager":{"d":["Βρίσκει νέους πελάτες","Διαχειρίζεται τους υπάρχοντες λογαριασμούς","Ετοιμάζει προσφορές και διαπραγματεύεται","Πετυχαίνει στόχους πωλήσεων"],"k":["Κατανόηση τεχνολογίας","Διαπραγμάτευση","CRM","Επικοινωνία"],"l":[["Workable · Technical Account Manager","https://resources.workable.com/technical-account-manager-job-description"]]},"Sales Engineer":{"d":["Αναλύει τις τεχνικές απαιτήσεις του πελάτη","Σχεδιάζει τη λύση","Συμμετέχει σε διαγωνισμούς","Υποστηρίζει την εγκατάσταση"],"k":["Τεχνικό υπόβαθρο","Παρουσίαση","Σύνταξη προσφορών","Αγγλικά"],"l":[]},"Customer Success Manager":{"d":["Βοηθά τους νέους πελάτες να ξεκινήσουν","Παρακολουθεί πώς χρησιμοποιούν το προϊόν","Εντοπίζει ευκαιρίες για αναβάθμιση","Μεταφέρει το feedback στην ομάδα"],"k":["Γνώση προϊόντων SaaS","Επικοινωνία","Analytics","CRM"],"l":[]},"IT Support / Help Desk":{"d":["Υποστηρίζει τους χρήστες σε τεχνικά προβλήματα","Εγκαθιστά λογισμικό","Ρυθμίζει λογαριασμούς","Καταγράφει τις λύσεις"],"k":["Windows, macOS, Microsoft 365","Βασικά δικτύων","Ticketing","Επικοινωνία","Πιστοποίηση CompTIA A+"],"l":[["Indeed · IT Support","https://www.indeed.com/hire/job-description/it-support"],["Workable · Technical Support Engineer","https://resources.workable.com/technical-support-engineer-job-description"],["SHRM · Technical Support Specialist","https://www.shrm.org/resourcesandtools/tools-and-samples/job-descriptions/pages/technical-support-specialist.aspx"],["Workable · Help Desk Specialist","https://resources.workable.com/help-desk-specialist-job-description"],["Workable · Desktop Support Engineer","https://resources.workable.com/desktop-support-engineer-job-description"],["SHRM · Help Desk Specialist","https://www.shrm.org/topics-tools/tools/job-descriptions/data-processing-help-desk-specialist"]]},"Ψηφιακός Μετασχηματισμός / GovTech":{"d":["Σχεδιάζει την ψηφιοποίηση διαδικασιών","Συντονίζει έργα με χρηματοδότηση από την ΕΕ","Συνεργάζεται με τους αναδόχους","Παρακολουθεί την υλοποίηση"],"k":["Διαχείριση έργων","Ανάλυση διαδικασιών","Δημόσιες συμβάσεις","Διαλειτουργικότητα","Επικοινωνία"],"l":[]},"Λιανική & E-commerce":{"d":["Στήνει και συντηρεί ηλεκτρονικά καταστήματα","Ενσωματώνει πληρωμές και courier","Βελτιώνει την ταχύτητα και τις πωλήσεις","Συνδέει το κατάστημα με το ERP"],"k":["Shopify, WooCommerce ή Magento","PHP ή JavaScript","APIs","Βασικά SEO","Analytics"],"l":[["Workable · Webmaster","https://resources.workable.com/webmaster-job-description"],["Indeed · Web Developer","https://www.indeed.com/hire/job-description/web-developer"]]},"Front-end Developer":{"d":["Μετατρέπει τα σχέδια των designers σε λειτουργικές σελίδες","Φροντίζει να δουλεύει η σελίδα σε κάθε browser και μέγεθος οθόνης","Βελτιώνει την ταχύτητα και την προσβασιμότητα","Συνεργάζεται με designers και back-end developers"],"k":["HTML, CSS, JavaScript / TypeScript","React, Vue ή Angular","Responsive design","Git","Βασικές αρχές UX και προσβασιμότητας"],"l":[["Workable · Front-End Developer","https://resources.workable.com/front-end-developer-job-description"],["Indeed · Front End Developer","https://www.indeed.com/hire/job-description/front-end-developer"]]},"Back-end Developer":{"d":["Σχεδιάζει και υλοποιεί APIs","Γράφει τη λογική του server και διαχειρίζεται τις βάσεις δεδομένων","Φροντίζει για απόδοση, ασφάλεια και κλιμάκωση","Γράφει αυτοματοποιημένα tests"],"k":["Java, Python, C#, Node.js ή Go","SQL και NoSQL βάσεις δεδομένων","REST και GraphQL","Linux και Docker","Δομές δεδομένων και αλγόριθμοι"],"l":[["Workable · Back-End Developer","https://resources.workable.com/back-end-developer-job-description"],["Indeed · Software Engineer","https://www.indeed.com/hire/job-description/software-engineer"],["SHRM · Software Engineer","https://www.shrm.org/topics-tools/tools/job-descriptions/software-engineer"]]},"Full-stack Developer":{"d":["Υλοποιεί ολόκληρα features, από τη βάση δεδομένων μέχρι το UI","Στήνει και συντηρεί web εφαρμογές","Κάνει deploy και διορθώνει bugs σε όλα τα επίπεδα"],"k":["Front-end (JavaScript, React)","Back-end (Node.js, Python ή Java)","Βάσεις δεδομένων και APIs","Git, CI/CD και βασικά cloud"],"l":[["Workable · Full Stack Developer","https://resources.workable.com/full-stack-developer-job-description"],["Indeed · Full Stack Developer","https://www.indeed.com/hire/job-description/full-stack-developer"],["Indeed · Software Developer","https://www.indeed.com/hire/job-description/software-developer"]]},"Mobile Developer":{"d":["Αναπτύσσει native ή cross-platform εφαρμογές","Συνδέει την εφαρμογή με APIs και υπηρεσίες","Δημοσιεύει στο App Store και στο Google Play","Βελτιώνει την απόδοση και την κατανάλωση μπαταρίας"],"k":["Swift (iOS) ή Kotlin (Android)","Flutter ή React Native","Οδηγίες σχεδίασης iOS και Android","REST APIs","Testing σε πραγματικές συσκευές"],"l":[["Workable · Mobile Developer","https://resources.workable.com/mobile-developer-job-description"],["Workable · iOS Engineer","https://resources.workable.com/ios-engineer-job-description"],["Workable · Android Engineer","https://resources.workable.com/android-engineer-job-description"],["SHRM · Software Developer Applications","https://www.shrm.org/topics-tools/tools/job-descriptions/software-developer-applications"]]},"Game Developer":{"d":["Προγραμματίζει μηχανισμούς παιχνιδιού, φυσική και συμπεριφορά χαρακτήρων","Βελτιστοποιεί την απόδοση των γραφικών","Συνεργάζεται με artists και game designers","Διορθώνει bugs που βρίσκονται στο playtesting"],"k":["C++ ή C#","Unity ή Unreal Engine","Γραμμική άλγεβρα και φυσική","Γραφικά 2D / 3D","Git"],"l":[["Workable · Game Developer","https://resources.workable.com/game-developer-job-description"]]},"Embedded / IoT Developer":{"d":["Γράφει firmware για μικροελεγκτές","Συνδέει αισθητήρες και περιφερειακά","Κάνει debugging πάνω σε πραγματικό υλικό","Βελτιστοποιεί τη χρήση μνήμης και ενέργειας"],"k":["C και C++","Μικροελεγκτές (ARM, ESP32)","RTOS","Πρωτόκολλα I2C, SPI, UART, MQTT","Βασικά ηλεκτρονικά"],"l":[["Workable · Embedded Software Engineer","https://resources.workable.com/embedded-software-engineer-job-description"]]},"QA / Test Engineer":{"d":["Σχεδιάζει σενάρια ελέγχου (test cases)","Εκτελεί χειροκίνητα και αυτοματοποιημένα tests","Καταγράφει bugs και παρακολουθεί τη διόρθωσή τους","Εντάσσει τα tests στο CI/CD"],"k":["Μεθοδολογίες testing","Selenium, Cypress ή Playwright","Python, JavaScript ή Java","Jira","Προσοχή στη λεπτομέρεια"],"l":[["Workable · QA Tester","https://resources.workable.com/qa-tester-job-description"],["Workable · QA Automation Engineer","https://resources.workable.com/qa-automation-engineer-job-description"],["Indeed · Software Test Engineer","https://www.indeed.com/hire/job-description/software-test-engineer"]]},"Low-code / Automation Developer":{"d":["Εντοπίζει επαναλαμβανόμενες διαδικασίες","Φτιάχνει ροές αυτοματισμού και εσωτερικές εφαρμογές","Συνδέει συστήματα μέσω APIs","Εκπαιδεύει τους χρήστες"],"k":["Power Automate, Power Apps, n8n ή Zapier","Βασικός προγραμματισμός και scripting","APIs και JSON","Excel και SQL","Ανάλυση διαδικασιών"],"l":[]},"BI Analyst / Developer":{"d":["Σχεδιάζει dashboards και δείκτες απόδοσης (KPIs)","Μοντελοποιεί τα δεδομένα για αναφορές","Εκπαιδεύει χρήστες","Συνεργάζεται με τη διοίκηση"],"k":["Power BI, Tableau ή Looker","SQL","Data warehousing","DAX","Κατανόηση της επιχείρησης"],"l":[["Workable · BI Developer","https://resources.workable.com/bi-developer-job-description"],["Workable · BI Consultant","https://resources.workable.com/bi-consultant-job-description"],["SHRM · Business Intelligence Analyst","https://www.shrm.org/resourcesandtools/tools-and-samples/job-descriptions/pages/business-intelligence-analyst.aspx"]]},"Computer Vision Engineer":{"d":["Αναπτύσσει μοντέλα που αναγνωρίζουν και ταξινομούν εικόνες","Προετοιμάζει και επισημαίνει datasets","Βελτιστοποιεί μοντέλα για να τρέχουν σε συσκευές","Μετρά την ακρίβεια"],"k":["Python και OpenCV","PyTorch","CNN και vision transformers","Επεξεργασία εικόνας","Χρήση GPU"],"l":[]},"NLP Engineer":{"d":["Χτίζει μοντέλα για ταξινόμηση κειμένου, εξαγωγή πληροφορίας και μετάφραση","Προσαρμόζει (fine-tune) γλωσσικά μοντέλα","Επεξεργάζεται κείμενα σε πολλές γλώσσες","Αξιολογεί τα αποτελέσματα"],"k":["Python","Hugging Face Transformers","Βασικά γλωσσολογίας","Μηχανική μάθηση"],"l":[["Workable · NLP Engineer","https://resources.workable.com/natural-language-processing-engineer-job-description"]]},"Data Governance Specialist":{"d":["Καταγράφει τα δεδομένα και τους υπευθύνους τους","Ορίζει πολιτικές ποιότητας","Φροντίζει για τη συμμόρφωση με τον GDPR","Εκπαιδεύει τις ομάδες"],"k":["Πλαίσια διακυβέρνησης δεδομένων (π.χ. DAMA)","Εργαλεία καταλόγου δεδομένων (Collibra, Purview)","SQL","GDPR","Επικοινωνία"],"l":[["Workable · Data Manager","https://resources.workable.com/data-manager-job-description"],["Indeed · Data Manager","https://www.indeed.com/hire/job-description/data-manager"]]},"Digital Forensics Analyst":{"d":["Συλλέγει και διασφαλίζει ψηφιακά τεκμήρια","Αναλύει δίσκους, μνήμη και logs","Ανασυνθέτει τη χρονολογία ενός περιστατικού","Γράφει εκθέσεις, καμιά φορά για δικαστήρια"],"k":["Autopsy, FTK, Volatility","Συστήματα αρχείων","Αλυσίδα επιμέλειας τεκμηρίων","Εσωτερική λειτουργία Windows και Linux","Νομικό πλαίσιο"],"l":[]},"Σύμβουλος GRC / Συμμόρφωσης":{"d":["Καταγράφει και αξιολογεί κινδύνους","Γράφει πολιτικές και διαδικασίες","Προετοιμάζει τον οργανισμό για ελέγχους","Παρακολουθεί τη συμμόρφωση"],"k":["GDPR, NIS2, ISO 27001","Διαχείριση κινδύνου","Τεκμηρίωση","Επικοινωνία με τη διοίκηση","Βασικά ασφάλειας"],"l":[]},"Cloud Security Engineer":{"d":["Ελέγχει τις ρυθμίσεις cloud για κενά","Ορίζει δικαιώματα πρόσβασης (IAM)","Ανιχνεύει απειλές","Ασφαλίζει τα pipelines"],"k":["AWS, Azure ή GCP","IAM","Kubernetes και containers","Terraform","Πιστοποιήσεις cloud security"],"l":[]},"Performance Marketing Specialist":{"d":["Στήνει διαφημιστικές καμπάνιες","Διαχειρίζεται τον προϋπολογισμό","Μετρά την απόδοση","Βελτιστοποιεί συνεχώς"],"k":["Google Ads και Meta Ads","Analytics","Excel","Tracking","Αναλυτική σκέψη"],"l":[]},"Pre-sales Engineer":{"d":["Κατανοεί τις ανάγκες των υποψήφιων πελατών","Κάνει παρουσιάσεις και demos","Απαντά σε τεχνικές ερωτήσεις και διαγωνισμούς","Συνεργάζεται με την ομάδα πωλήσεων"],"k":["Γνώση του προϊόντος","Παρουσίαση","Τεχνική κατανόηση","Επικοινωνία","Αγγλικά"],"l":[]},"Υποψήφιος Διδάκτορας":{"d":["Παρακολουθεί εξειδικευμένα μαθήματα","Εκπονεί διπλωματική ή διδακτορική έρευνα","Δημοσιεύει επιστημονικά άρθρα","Βοηθά στη διδασκαλία"],"k":["Ισχυρό θεωρητικό υπόβαθρο","Ερευνητική μεθοδολογία","Αγγλικά","Επιστημονική γραφή","Αυτονομία"],"l":[]},"Μέλος ΔΕΠ (Πανεπιστήμιο)":{"d":["Διδάσκει μαθήματα","Επιβλέπει διπλωματικές και διδακτορικά","Κάνει έρευνα","Συμμετέχει στη διοίκηση του τμήματος"],"k":["Διδακτορικό","Δημοσιεύσεις","Διδακτική εμπειρία","Εξασφάλιση χρηματοδότησης","Αγγλικά"],"l":[]},"Δίωξη Ηλεκτρονικού Εγκλήματος (ΕΛ.ΑΣ.)":{"d":["Ερευνά απάτες και επιθέσεις στο διαδίκτυο","Αναλύει ψηφιακά τεκμήρια","Συνεργάζεται με αρχές άλλων χωρών","Ενημερώνει το κοινό για κινδύνους"],"k":["Κυβερνοασφάλεια και digital forensics","Δίκτυα","Νομικό πλαίσιο","Ένταξη μέσω της Ελληνικής Αστυνομίας"],"l":[]},"Επιβλέπων Έργων Πληροφορικής":{"d":["Παρακολουθεί την πρόοδο του έργου","Ελέγχει την τήρηση της σύμβασης","Συντάσσει αναφορές","Προτείνει διορθωτικές κινήσεις"],"k":["Διαχείριση έργων","Νομοθεσία δημοσίων συμβάσεων","Τεχνική κατανόηση","Γραφή"],"l":[["Indeed · Technical Project Manager","https://www.indeed.com/hire/job-description/technical-project-manager"]]},"Μέλος Επιτροπών Αξιολόγησης & Παραλαβής":{"d":["Αξιολογεί τεχνικές προσφορές σε διαγωνισμούς","Βαθμολογεί με βάση κριτήρια","Ελέγχει τα παραδοτέα","Υπογράφει πρωτόκολλα παραλαβής"],"k":["Τεχνική γνώση","Νομοθεσία δημοσίων συμβάσεων","Αμεροληψία","Γραφή"],"l":[]},"Ελεγκτής Πιστοποίησης (ISO)":{"d":["Εκτελεί ελέγχους πιστοποίησης","Ελέγχει την τεκμηρίωση","Επισκέπτεται εγκαταστάσεις","Εκδίδει αναφορές"],"k":["ISO 9001 και ISO 27001","Πιστοποίηση Lead Auditor","Διαχείριση ποιότητας","Επικοινωνία"],"l":[]},"Ιδρυτής Software House":{"d":["Βρίσκει πελάτες","Κοστολογεί και κλείνει συμβάσεις","Συντονίζει την υλοποίηση","Διαχειρίζεται την ομάδα"],"k":["Ανάπτυξη λογισμικού","Διαχείριση έργων","Πωλήσεις","Βασικά νομικά και φορολογικά"],"l":[]},"Indie Developer / SaaS":{"d":["Φτιάχνει ένα μικρό προϊόν","Το προωθεί","Υποστηρίζει τους χρήστες","Παρακολουθεί έσοδα και συνδρομές"],"k":["Full-stack ανάπτυξη","Πληρωμές (π.χ. Stripe)","Marketing","Cloud hosting","Αυτοπειθαρχία"],"l":[]},"Remote σε εταιρεία του εξωτερικού":{"d":["Δουλεύει σε διεθνή ομάδα","Συμμετέχει σε online συναντήσεις","Επικοινωνεί κυρίως γραπτά","Οργανώνει μόνος τον χρόνο του"],"k":["Άριστα αγγλικά","Ασύγχρονη επικοινωνία (Slack, έγγραφα)","Αυτονομία","Διαφορετικές ζώνες ώρας","Συμβάσεις και φορολογία"],"l":[]}};
+
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const board = document.getElementById('board');
+board.innerHTML = AREAS.map(a => a.hub ? `
+  <div class="hub"><div class="hub-disc">
+    <div class="hub-eyebrow">Brainstorming</div>
+    <h1>Τι μπορώ να κάνω με πτυχίο Πληροφορικής;</h1>
+    <p>Πάτα σε ένα κουτί για περιγραφές και job descriptions</p>
+  </div></div>` : `
+  <button class="note" type="button" data-id="${a.id}" aria-haspopup="dialog"
+    style="--c:var(--c${a.n});--ink:var(--i${a.n});--tilt:${a.tilt}deg">
+    <span class="note-head">${svg(a.icon)}<span class="note-title">${esc(a.title)}</span></span>
+    <span class="chips">${a.roles.map(r => `<span class="chip">${esc(r[0])}</span>`).join('')}</span>
+    ${a.law ? '<span class="law">ΦΕΚ</span>' : ''}<span class="more">Περιγραφή <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </button>`).join('');
+
+const sheet = document.getElementById('sheet');
+let lastBtn = null;
+board.addEventListener('click', e => {
+  const btn = e.target.closest('.note'); if (!btn) return;
+  const a = AREAS.find(x => x.id === btn.dataset.id);
+  lastBtn = btn;
+  sheet.style.setProperty('--c', `var(--c${a.n})`);
+  sheet.style.setProperty('--ink', `var(--i${a.n})`);
+  document.getElementById('sheet-icon').innerHTML = svg(a.icon, 30);
+  document.getElementById('sheet-title').textContent = a.title;
+  document.getElementById('sheet-intro').textContent = a.intro;
+  document.getElementById('sheet-roles').innerHTML = a.roles.map(r => {
+    const j = JD[r[0]];
+    if (!j) return `<li><div class="role-plain"><strong>${esc(r[0])}</strong><span>${esc(r[1])}</span></div></li>`;
+    const links = j.l.length ? `<div class="jd-block"><h4>Job description</h4><ul class="jd-links">${j.l.map(x => `<li><a href="${x[1]}" target="_blank" rel="noopener noreferrer">${esc(x[0])}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></li>`).join('')}</ul></div>` : '';
+    return `<li><details><summary><span class="sum-text"><strong>${esc(r[0])}</strong><span>${esc(r[1])}</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="jd"><div class="jd-cols">
+        <div class="jd-block"><h4>Καθήκοντα</h4><ul class="jd-list">${j.d.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+        <div class="jd-block"><h4>Γνώσεις & δεξιότητες</h4><ul class="jd-tags">${j.k.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+      </div>${links}</div></details></li>`;
+  }).join('');
+  sheet.showModal();
+  sheet.querySelector('.sheet-body').scrollTop = 0;
+});
+document.getElementById('sheet-close').addEventListener('click', () => sheet.close());
+sheet.addEventListener('click', e => { if (e.target === sheet) sheet.close(); });
+sheet.addEventListener('close', () => { if (lastBtn) lastBtn.focus(); });
+</script>
+</body>
+</html>
