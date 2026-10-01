@@ -26,7 +26,7 @@
 
 **Τοπικά:** κατέβασε το repository και άνοιξε το `index.html` σε έναν browser. Δεν χρειάζεται εγκατάσταση.
 
-**Online με GitHub Pages:** https://github.com/chitiris/Project-Career-Informatics
+**Online με GitHub Pages:** [https://github.com/chitiris/Project-Career-Informatics](https://chitiris.github.io/Project-Career-Informatics/)
 
 
 ## Δομή
